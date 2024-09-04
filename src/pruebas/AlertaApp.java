@@ -12,7 +12,6 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import com.formdev.flatlaf.FlatLightLaf; // Importa el tema FlatLaf
-
 public class AlertaApp {
 
     private static Timer timer = new Timer();
@@ -110,13 +109,13 @@ public class AlertaApp {
         // Configurar los selectores de fecha
         JSpinner startDateSpinner = new JSpinner(new SpinnerDateModel());
         JSpinner endDateSpinner = new JSpinner(new SpinnerDateModel());
-        JSpinner.DateEditor startEditor = new JSpinner.DateEditor(startDateSpinner, "yyyy-MM-dd");
-        JSpinner.DateEditor endEditor = new JSpinner.DateEditor(endDateSpinner, "yyyy-MM-dd");
+        JSpinner.DateEditor startEditor = new JSpinner.DateEditor(startDateSpinner, "dd-MM-yyyy");
+        JSpinner.DateEditor endEditor = new JSpinner.DateEditor(endDateSpinner, "dd-MM-yyyy");
         startDateSpinner.setEditor(startEditor);
         endDateSpinner.setEditor(endEditor);
 
         JButton startButton = new JButton("Iniciar");
-        JButton stopButton = new JButton("Detener");
+        JButton stopButton = new JButton("Eliminar alertas");
         JButton backButton = new JButton("Regresar");
 
         programadorPanel.add(label1);
@@ -156,7 +155,8 @@ public class AlertaApp {
                         TimerTask tarea = new TimerTask() {
                             @Override
                             public void run() {
-                                mostrarNotificacion("Alerta de Contrato", "¡Es hora de una alerta para el contrato: " + nombreContrato + "! Tiempo restante: " + calcularTiempoRestante(endDate));
+                                mostrarNotificacion("Recordatorio de Contrato", "Recordatorio de Contrato: " + nombreContrato + " (Tiempo restante hasta el término del contrato: " + calcularTiempoRestante(endDate));
+                            
                             }
                         };
                         Alerta alerta = new Alerta(nombreContrato, endDate, tarea);
