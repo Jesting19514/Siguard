@@ -154,12 +154,7 @@ public class AlertaApp {
                         TimerTask tarea = new TimerTask() {
                             @Override
                             public void run() {
-<<<<<<< HEAD
                                 mostrarNotificacion("Alerta de Contrato: "+nombreContrato, "Tiempo restante: " + calcularTiempoRestante(endDate));
-=======
-                                mostrarNotificacion("Recordatorio de Contrato", "Recordatorio de Contrato: " + nombreContrato + " (Tiempo restante hasta el término del contrato: " + calcularTiempoRestante(endDate));
-                            
->>>>>>> Erick_Pruebas
                             }
                         };
                         Alerta alerta = new Alerta(nombreContrato, endDate, tarea);
