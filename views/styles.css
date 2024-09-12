@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Quicksand:wght@300..700&display=swap');
+*{
+    margin: auto;
+    padding: auto;
+    box-sizing: border-box;
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+header{
+    font-family: "Quicksand", sans-serif;
+    font-style: bold;
+    font-weight: 600;
+    color: #fff;
+    display: grid;
+    /*Centrar esta shit*/
+    align-items: center;
+    justify-content: center;
+    background-color: #0F605C;
+}
+
+header img{
+    width: 50px;
+}
+main{
+    display: flex;
+    flex-direction: center;
+    align-items: start;
+    gap: 20px;
+    width: 95%; /*Corregir formato medidas más responsive*/
+    height: 92vh; /*Corregir formato medidas más responsive*/
+    margin: 0em 0.5em 0.7em 15em;
+    background-color: #ffeee0;
+    padding: 13px 0px 13px 20px;
+    border-radius: 10px;
+
+}
+
+article button{
+    border: none;
+    border-radius: 4px;
+    display:block;
+    box-shadow: 3px 3px 5px #746a64b1;
+    width: 65rem;
+    height: 5rem;
+    font-size: 20px;
+    margin:5px 0px 7px 0px;
+    justify-content: start;
+    background-color: #fff5ed;
+    transition: transform 0.3s;
+    overflow: hidden;
+}
+
+article button:hover{
+    transform: translateY(-3px);
+}
+
+article button:active{
+    transform: translateY(2px);
+}
+
+.layadmin{
+    display: flex;
+    grid-template-columns: 1fr, 4fr;
+}
+
+body{
+    align-content: center;
+    justify-content: center;
+    padding: 30px;
+    background-color: #0F605C;
+}
+
+.icon{ /*Pegar ícono con ADMIN*/
+    background-color: #fff;
+    border-radius: 100px;
+    
+}
