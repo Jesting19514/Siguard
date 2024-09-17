@@ -1,0 +1,50 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Permite que el tamaño se ajuste al borde */
+}
+/* Reset básico para asegurar que el html y body tengan el 100% de altura */
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  background-color: #0f605c;
+}
+#imgIMSS {
+  position: absolute;
+  height: 60%;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 10%;
+  width: auto;
+}
+
+#Login {
+  height: 100dvh;
+  width: 100dvw;
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: end;
+}
+.container {
+  height: 90%;
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 30px;
+  margin-right: 10%;
+}
+.unbtn {
+  border: none;
+  border-radius: 25px;
+  height: 7%;
+  width: 50%;
+  background-color: #0f605c;
+  color: white;
+}
