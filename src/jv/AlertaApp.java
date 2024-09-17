@@ -1,4 +1,4 @@
-package pruebas;
+package jv;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
-import com.formdev.flatlaf.FlatLightLaf; // Importa el tema FlatLaf
+import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 public class AlertaApp {
 
     private static Timer timer = new Timer();
@@ -31,7 +31,7 @@ public class AlertaApp {
     public static void main(String[] args) {
         // Establecer el tema FlatLaf antes de inicializar la interfaz
         try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
+            UIManager.setLookAndFeel(new FlatCyanLightIJTheme());
         } catch (Exception ex) {
             System.err.println("Failed to initialize LaF");
         }
@@ -45,7 +45,7 @@ public class AlertaApp {
         mainFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // Deshabilitar el cierre por defecto
         mainFrame.setSize(600, 400);
         mainFrame.setLocationRelativeTo(null); // Centra la ventana en la pantalla
-
+    
         // Añadir el WindowListener para manejar el cierre de la ventana
         mainFrame.addWindowListener(new WindowAdapter() {
             @Override
@@ -54,24 +54,30 @@ public class AlertaApp {
                 System.exit(0); // Salir del programa
             }
         });
-
+    
         // Crear el panel principal con CardLayout
         JPanel mainPanel = new JPanel(new CardLayout());
         mainFrame.add(mainPanel);
-
+    
         // Crear las vistas
         JPanel menuPanel = createMenuPanel(mainPanel);
         JPanel programadorPanel = createProgramadorPanel(mainPanel);
         JPanel alertasPanel = createAlertasPanel(mainPanel);
-
+    
+        // Establecer el fondo blanco para los paneles
+        // menuPanel.setBackground(Color.WHITE);
+        // programadorPanel.setBackground(Color.WHITE);
+        // alertasPanel.setBackground(Color.WHITE);
+    
         // Agregar las vistas al panel principal
         mainPanel.add(menuPanel, "Menu");
         mainPanel.add(programadorPanel, "Programador");
         mainPanel.add(alertasPanel, "Alertas");
-
+    
         // Mostrar la ventana principal
         mainFrame.setVisible(true);
     }
+    
 
     private static JPanel createMenuPanel(JPanel mainPanel) {
         JPanel menuPanel = new JPanel();
@@ -136,20 +142,21 @@ public class AlertaApp {
                 int intervalMonths = Integer.parseInt(intervalInput.getText());
                 Date startDate = (Date) startDateSpinner.getValue();
                 Date endDate = (Date) endDateSpinner.getValue();
-
+        
                 // Validaciones
                 if (!validarFechas(startDate, endDate)) {
                     return;
                 }
-
+        
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(startDate);
-
+        
                 ArrayList<Alerta> alertasContrato = new ArrayList<>();
-
+        
                 while (calendar.getTime().before(endDate)) {
                     calendar.add(Calendar.MONTH, intervalMonths);
                     Date alertTime = calendar.getTime();
+        
                     if (alertTime.before(endDate)) {
                         TimerTask tarea = new TimerTask() {
                             @Override
@@ -162,9 +169,34 @@ public class AlertaApp {
                         timer.schedule(tarea, alertTime);
                     }
                 }
-
+        
+                // Alertas semanales durante el último mes
+                long diasRestantes = (endDate.getTime() - calendar.getTime().getTime()) / (1000 * 60 * 60 * 24);
+        
+                if (diasRestantes <= 30) {
+                    calendar.setTime(endDate);
+                    calendar.add(Calendar.DAY_OF_MONTH, -30); // Establece la fecha de inicio de alertas semanales
+        
+                    while (calendar.getTime().before(endDate)) {
+                        calendar.add(Calendar.WEEK_OF_YEAR, 1);
+                        Date alertTime = calendar.getTime();
+        
+                        if (alertTime.before(endDate)) {
+                            TimerTask tareaSemanal = new TimerTask() {
+                                @Override
+                                public void run() {
+                                    mostrarNotificacion("Alerta Semanal de Contrato: "+nombreContrato, "¡Queda menos de un mes! Tiempo restante: " + calcularTiempoRestante(endDate));
+                                }
+                            };
+                            Alerta alertaSemanal = new Alerta(nombreContrato, endDate, tareaSemanal);
+                            alertasContrato.add(alertaSemanal);
+                            timer.schedule(tareaSemanal, alertTime);
+                        }
+                    }
+                }
+        
                 alertasPorContrato.put(nombreContrato, alertasContrato);
-
+        
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(mainFrame, "Por favor ingrese un intervalo válido en meses.");
             } catch (Exception ex) {
@@ -175,7 +207,7 @@ public class AlertaApp {
         // Acción para detener las alertas
         stopButton.addActionListener(e -> {
             detenerEjecucion(); // Detener alertas
-            JOptionPane.showMessageDialog(mainFrame, "Las alertas han sido detenidas.");
+            JOptionPane.showMessageDialog(mainFrame, "Las alertas han sido eliminadas.");
         });
 
         // Acción para regresar al menú principal
