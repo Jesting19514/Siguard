@@ -113,16 +113,18 @@ body {
     transition: background-color 0.3s ease;
     flex: 1;
     margin-bottom: .8em;
-    transition: transform 0.5s ease, background-color 0.3s ease;
+    transition: transform 0.5s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .daycare-item:hover {
     background-color: #ecf0f12c;
     Transform: translateY(-3px);
+    box-shadow: 0 5px 4px rgba(0, 255, 64, 0.507);
 }
 
 .daycare-item:active {
     Transform: translateY(1px);
+    box-shadow: 0 5px 2px rgba(0, 202, 51, 0.623);
 }
 
 .logoimss {
