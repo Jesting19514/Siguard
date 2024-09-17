@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Quicksand:wght@300..700&display=swap');
+
 body {
     
     margin: 0;
@@ -18,12 +20,12 @@ body {
 }
 
 .sidebar h2 {
-    font-family: 'Verdana', sans-serif;
+    font-family: 'Quicksand', sans-serif;
     font-size: 300%;
     color: white;
     margin-top: 1;
+    text-shadow: 1px 1px 10px black;
 }
-
 .content {
     width: 80%;
     padding: 20px;
