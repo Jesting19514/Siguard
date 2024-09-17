@@ -39,6 +39,7 @@ body {
     overflow-y: auto;
     border: none; 
     margin: 0px 0;
+    padding: 0.8em;
 }
 
 .daycare-item-container {
@@ -93,9 +94,9 @@ body {
 }
 
 .daycare-item {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Quicksand', sans-serif;
     padding: 1%;
-    font-size: 20px;
+    font-size: 2em;
     color: black;
     background: white;
     border: 1px solid rgba(0, 0, 0, 0.089);
@@ -110,6 +111,9 @@ body {
 
 .daycare-item:hover {
     background-color: #ecf0f123;
+    transform: translateY(-5px); /* Mueve el elemento 5px hacia arriba */
+    box-shadow: 0 8px 1px rgba(0, 0, 0, 0.1); /* Aumenta la sombra para un efecto más pronunciado */
+
 }
 
 .logoimss {
