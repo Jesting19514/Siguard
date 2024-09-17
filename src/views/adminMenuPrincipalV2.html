@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Admin</title>
+    <link rel="stylesheet" href="../css/stlye.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>ADMIN</h2> 
+        <img src="../../assets/images/imss_logo.png" class="logoimss">
+    </div>
+    <div class="content">
+        
+        <div id="daycare-list">
+            <div class="daycare-item-container">
+                <button class="daycare-item" onclick="location.href='prueba.html'">Guardería X</button>
+                <button class="edit-button" onclick="editName(this)"><img src="../../assets/images/editIcon_1.png" class="icon"></button>
+                <button class="delete-button" onclick="deleteDaycare(this)"><img src="../../assets/images/deleteIcon2.png" class="icon"></button>
+            </div>
+        </div>
+        <button class="report-button" onclick="">Reportes</button>
+        <button class="add-button" onclick="addDaycare()">Agregar Guardería</button>
+    </div>
+    <script src="/src/js/menuadmin.js"></script>
+</body>
+</html>

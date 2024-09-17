@@ -7,6 +7,7 @@ body {
     display: flex;
     height: 100vh;
     background-color: #ffeee021;
+    scrollbar-color: #0f605c #f1f1f1;
 }
 
 .sidebar {
@@ -35,25 +36,26 @@ body {
 }
 
 #daycare-list {
-    max-height: 93%;
+    max-height: 90%;
     overflow-y: auto;
     border: none; 
     margin: 0px 0;
     padding: 0.8em;
 }
-
 .daycare-item-container {
     display: flex;
     align-items: center;
     gap: 10px;
+    margin-bottom: 1.5em;
 }
-
 .add-button {
+    font-family: 'Quicksand', sans-serif;
+    text-shadow: 1px 1px 10px black;
     position: fixed;
     bottom: 20px;
     right: 20px;
     padding: 10px 100px;
-    font-size: 14px;
+    font-size: 20px;
     background-color: #27ae60;
     color: white;
     border: none;
@@ -67,12 +69,14 @@ body {
 }
 
 .report-button {
+    font-family: 'Quicksand', sans-serif;
+    text-shadow: 1px 1px 10px black;
     position: fixed;
     bottom: 20px;
-    left: 33em;
+    left: 23%;
     padding: 10px 100px;
-    font-size: 14px;
-    background-color: #838383;
+    font-size: 20px;
+    background-color: #9e9e9eb4;
     color: white;
     border: none;
     border-radius: 5px;
@@ -81,10 +85,10 @@ body {
 }
 
 .report-button:hover {
-    background-color: #000000;
+    background-color: #9e9e9e;
 }
 .delete-button, .edit-button {
-    padding: 10px 15px;
+    padding: 15px 20px;
     font-size: 14px;
     border: none;
     border-radius: 5px;
@@ -93,21 +97,25 @@ body {
 }
 
 .delete-button {
-    background-color: #e74d3c77;
-    color: white;
+    background-color: #e74d3c00;
+    opacity: 0.5;
 }
 
 .delete-button:hover {
-    background-color: #c0392b;
+    background-color: #ecf0f100;
+    transform: translateY(-5px); 
+    opacity: 1;
 }
 
 .edit-button {
-    background-color: #3498db4f;
-    color: white;
+    background-color: #3498db00;
+    opacity: 0.5;
 }
 
 .edit-button:hover {
-    background-color: #2980b9;
+    background-color: #297fb900;
+    transform: translateY(-5px); 
+    opacity: 1;
 }
 
 .daycare-item {
@@ -123,13 +131,14 @@ body {
     text-align: left;
     transition: background-color 0.3s ease;
     flex: 1;
-    margin-bottom: 0.8em;
+    
+    
 }
 
 .daycare-item:hover {
     background-color: #ecf0f123;
-    transform: translateY(-5px); /* Mueve el elemento 5px hacia arriba */
-    box-shadow: 0 8px 1px rgba(0, 0, 0, 0.1); /* Aumenta la sombra para un efecto más pronunciado */
+    transform: translateY(-5px); 
+    box-shadow: 0 8px 1px rgba(0, 0, 0, 0.1); 
 
 }
 
@@ -145,7 +154,7 @@ body {
     
 }
 .icon{
-    width: 20px;
+    width: 40px;
     cursor: pointer;
 }
 
