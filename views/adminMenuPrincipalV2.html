@@ -3,137 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daycare Manager</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            height: 100vh;
-            background-color: #ffeee0;
-        }
-        .sidebar {
-            width: 20%;
-            background-color: #0F605C;
-            padding: 20px;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-        }
-        .sidebar h2 {
-            font-size: 18px;
-            color: white;
-            margin: 0;
-        }
-        .content {
-            width: 80%;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .add-button {
-            padding: 10px 15px;
-            font-size: 14px;
-            background-color: #27ae60;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-bottom: 15px;
-        }
-        .add-button:hover {
-            background-color: #219150;
-        }
-        .daycare-item-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .delete-button, .edit-button {
-            padding: 10px 15px;
-            font-size: 14px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .delete-button {
-            background-color: #e74c3c;
-            color: white;
-        }
-        .delete-button:hover {
-            background-color: #c0392b;
-        }
-        .edit-button {
-            background-color: #3498db;
-            color: white;
-        }
-        .edit-button:hover {
-            background-color: #2980b9;
-        }
-        .daycare-item {
-            padding: 15px;
-            font-size: 16px;
-            color: rgb(255, 255, 255);
-            background: linear-gradient(90deg,#fc2e2ec7, #ff1e0073, #ff000071); border: none;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            text-align: left;
-            transition: background-color 0.3s ease;
-            flex: 1;
-        }
-        .daycare-item:hover {
-            background-color: #ecf0f1;
-        }
-    </style>
+    <title>Menu Admin</title>
+    <link rel="stylesheet" href="../src/css/stlye.css">
 </head>
 <body>
     <div class="sidebar">
-        <h2>ADMIN</h2>
+        <h2>ADMIN</h2> 
+        <img src="../src/assets/images/imss_logo.png" class="logoimss">
     </div>
     <div class="content">
-        <button class="add-button" onclick="addDaycare()">Agregar Guardería</button>
+        
         <div id="daycare-list">
             <div class="daycare-item-container">
-                
                 <button class="daycare-item" onclick="location.href='daycare-details.php'">Guardería X</button>
                 <button class="edit-button" onclick="editName(this)">Editar</button>
                 <button class="delete-button" onclick="deleteDaycare(this)">Borrar</button>
-                </div>
-    
+            </div>
+            
         </div>
+        <button class="add-button" onclick="addDaycare()">Agregar Guardería</button>
     </div>
-    <script>
-        function editName(button) {
-            var daycareButton = button.previousElementSibling;
-            var newName = prompt("Ingrese el nuevo nombre para la guardería:", daycareButton.textContent);
-            if (newName) {
-                daycareButton.textContent = newName;
-            }
-        }
-
-        function addDaycare() {
-            var daycareList = document.getElementById('daycare-list');
-            var newDaycare = document.createElement('div');
-            newDaycare.className = 'daycare-item-container';
-            newDaycare.innerHTML = `
-                <button class="delete-button" onclick="deleteDaycare(this)">Borrar</button>
-                <button class="daycare-item" onclick="location.href='daycare-details.php'">Guardería Nueva</button>
-                <button class="edit-button" onclick="editName(this)">Editar</button>
-            `;
-            daycareList.appendChild(newDaycare);
-        }
-
-        function deleteDaycare(button) {
-            if (confirm("¿Está seguro de que desea eliminar esta guardería?")) {
-                var daycareItem = button.parentElement;
-                daycareItem.remove();
-            }
-        }
-    </script>
+    <script src="../src/js/menuadmin.js"></script>
 </body>
 </html>
