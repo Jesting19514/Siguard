@@ -66,6 +66,23 @@ body {
     background-color: #219150;
 }
 
+.report-button {
+    position: fixed;
+    bottom: 20px;
+    left: 33em;
+    padding: 10px 100px;
+    font-size: 14px;
+    background-color: #838383;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.report-button:hover {
+    background-color: #000000;
+}
 .delete-button, .edit-button {
     padding: 10px 15px;
     font-size: 14px;
