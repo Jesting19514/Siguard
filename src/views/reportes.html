@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Admin</title>
+    <link rel="stylesheet" href="../css/stlye.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>ADMIN</h2> 
+        <img src="../../assets/images/imss_logo.png" class="logoimss">
+    </div>
+    <div class="content">
+        <div id="daycare-list">
+            <div class="daycare-item-container">
+                <!-- Content for daycare items -->
+            </div>
+        </div>
+        <canvas id="grafica"></canvas>
+        <button class="add-button" onclick="addDaycare()">Agregar Guardería</button>
+    </div>
+    
+    <script src="../js/menuadmin.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
+    <script>
+    const labels = ['Enero', 'Febrero', 'Marzo', 'Abril']
+
+const graph = document.querySelector("#grafica");
+
+const data = {
+    labels: labels,
+    datasets: [{
+        label:"Ejemplo 1",
+        data: [1, 2, 3, 4],
+        backgroundColor: 'rgba(9, 129, 176, 0.2)'
+    }]
+};
+
+const config = {
+    type: 'bar',
+    data: data,
+};
+
+new Chart(graph, config);
+    </script>
+</body>
+</html>

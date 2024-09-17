@@ -157,3 +157,11 @@ body {
     width: 40px;
     cursor: pointer;
 }
+
+.content h1 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 300%;
+    color: black;
+    margin-top: 1;
+    text-shadow: 1px 1px 10px grey;
+}
