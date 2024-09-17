@@ -4,12 +4,13 @@ body {
     padding: 0;
     display: flex;
     height: 100vh;
-    background-color: rgb(255, 255, 255);
+    background-color: #ffeee021;
 }
 
 .sidebar {
     width: 20%;
     background-color: #0f605c;
+    background: linear-gradient(60deg, #0f605c, #09988d);
     padding: 20px;
     display: flex;
     align-items: flex-start;
@@ -91,7 +92,7 @@ body {
 .daycare-item {
     font-family: 'Arial', sans-serif;
     padding: 1%;
-    font-size: 16px;
+    font-size: 20px;
     color: black;
     background: white;
     border: 1px solid rgba(0, 0, 0, 0.089);
