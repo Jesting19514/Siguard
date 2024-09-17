@@ -12,8 +12,8 @@ function addDaycare() {
     newDaycare.className = 'daycare-item-container';
     newDaycare.innerHTML = `
         <button class="daycare-item" onclick="location.href='daycare-details.php'">Guardería Nueva</button>
-        <button class="edit-button" onclick="editName(this)">Editar</button>
-        <button class="delete-button" onclick="deleteDaycare(this)">Borrar</button>
+        <img src="../src/img/editb.png" class="iconedit" onclick="editName(this)" alt="Editar">
+        <img src="../src/img/contract_delete_24dp_00000_FILL0_wght400_GRAD0_opsz24.png" class="icondelete" onclick="deleteDaycare(this)" alt="Borrar">
     `;
     daycareList.appendChild(newDaycare);
 }

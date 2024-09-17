@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu Admin</title>
     <link rel="stylesheet" href="../src/css/stlye.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" integrity="sha512-NmLkDIU1C/C88wi324HBc+S2kLhi08PN5GDeUVVVC/BVt/9Izdsc9SVeVfA1UZbY3sHUlDSyRXhCzHfr6hmPPw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <div class="sidebar">
@@ -16,8 +17,8 @@
         <div id="daycare-list">
             <div class="daycare-item-container">
                 <button class="daycare-item" onclick="location.href='daycare-details.php'">Guardería X</button>
-                <button class="edit-button" onclick="editName(this)">Editar</button>
-                <button class="delete-button" onclick="deleteDaycare(this)">Borrar</button>
+                <img src="../src/img/editb.png" class="iconedit" onclick="editName(this)" alt="Editar">
+                <img src="../src/img/contract_delete_24dp_00000_FILL0_wght400_GRAD0_opsz24.png" class="icondelete" onclick="deleteDaycare(this)" alt="Borrar">
             </div>
             
         </div>
