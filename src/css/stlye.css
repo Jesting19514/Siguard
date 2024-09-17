@@ -41,13 +41,12 @@ body {
     margin: 0px 0;
     padding: 0.8em;
 }
-
 .daycare-item-container {
     display: flex;
     align-items: center;
     gap: 10px;
+    margin-bottom: 1.5em;
 }
-
 .add-button {
     position: fixed;
     bottom: 20px;
@@ -84,7 +83,7 @@ body {
     background-color: #000000;
 }
 .delete-button, .edit-button {
-    padding: 10px 15px;
+    padding: 15px 20px;
     font-size: 14px;
     border: none;
     border-radius: 5px;
@@ -123,13 +122,13 @@ body {
     text-align: left;
     transition: background-color 0.3s ease;
     flex: 1;
-    margin-bottom: 0.8em;
+    
 }
 
 .daycare-item:hover {
     background-color: #ecf0f123;
-    transform: translateY(-5px); /* Mueve el elemento 5px hacia arriba */
-    box-shadow: 0 8px 1px rgba(0, 0, 0, 0.1); /* Aumenta la sombra para un efecto más pronunciado */
+    transform: translateY(-5px); 
+    box-shadow: 0 8px 1px rgba(0, 0, 0, 0.1); 
 
 }
 
