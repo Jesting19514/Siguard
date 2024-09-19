@@ -1,3 +1,15 @@
+function deleteDaycare(button) {
+    if (confirm("Estás a punto de eliminar una guardería, ¿Deseas continuar?")) {
+        var userInput = prompt("Para confirmar la eliminación, escribe 'DELETE'");
+        
+        if (userInput === "DELETE") {
+            var daycareItem = button.parentElement;
+            daycareItem.remove();
+        } else {
+            alert("El texto ingresado no es correcto. La eliminación ha sido cancelada.");
+        }
+    }
+}
 function editName(button) {
     var daycareButton = button.previousElementSibling;
     var newName = prompt("Ingrese el nuevo nombre para la guardería:", daycareButton.textContent);
