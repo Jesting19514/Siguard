@@ -1,14 +1,30 @@
+function deleteDaycare(button) {
+    if (confirm("Estás a punto de eliminar una guardería, ¿Deseas continuar?")) {
+        var userInput = prompt("Para confirmar la eliminación, escribe 'DELETE'");
+        
+        if (userInput === "DELETE") {
+            var daycareItem = button.parentElement;
+            daycareItem.remove();
+        } else {
+            alert("El texto ingresado no es correcto. La eliminación ha sido cancelada.");
+        }
+    }
+}
 function editName(button) {
     var daycareButton = button.previousElementSibling;
     var newName = prompt("Ingrese el nuevo nombre para la guardería:", daycareButton.textContent);
-    if (newName) {
+    if (newName && newName.length <= 25) {
         daycareButton.textContent = newName;
+    } else if (newName) {
+        alert("El nombre de la guardería no puede tener más de 25 caracteres.");
     }
 }
 
 function addDaycare() {
     var daycareName = prompt("Ingrese el nombre de la nueva guardería:");
-    if (daycareName) {
+
+    // Validar que el nombre no exceda los 25 caracteres
+    if (daycareName && daycareName.length <= 25) {
         var daycareList = document.getElementById('daycare-list');
         var newDaycare = document.createElement('div');
         newDaycare.className = 'daycare-item-container';
@@ -18,15 +34,9 @@ function addDaycare() {
             <button class="delete-button" onclick="deleteDaycare(this)"><img src="../../assets/images/deleteIcon2.png" class="icon"></button>
         `;
         daycareList.appendChild(newDaycare);
+    } else if (daycareName) {
+        alert("El nombre de la guardería no puede tener más de 25 caracteres.");
     } else {
         alert("Debe ingresar un nombre para la guardería.");
-    }
-}
-
-
-function deleteDaycare(button) {
-    if (confirm("¿Está seguro de que desea eliminar esta guardería?")) {
-        var daycareItem = button.parentElement;
-        daycareItem.remove();
     }
 }
