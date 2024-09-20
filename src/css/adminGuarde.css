@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Quicksand:wght@300..700&display=swap');
+
+body {
+    
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+    background-color: #ffeee021;
+    scrollbar-color: #09988d #f1f1f100;
+}
+
+.sidebar {
+    width: 20%;
+    background-color: #0f605c;
+    background: linear-gradient(60deg, #0f605c, #09988d);
+    padding: 20px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.sidebar h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 300%;
+    color: white;
+    margin-top: 1;
+    text-shadow: 1px 1px 10px black;
+}
+.content {
+    width: 80%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#daycare-list {
+    max-height: 90%;
+    overflow-y: auto;
+    border: none; 
+    margin: 0px 0;
+    padding: 0.8em;
+}
+.daycare-item-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.5em;
+}
+.daycare-item {
+    font-family: 'Quicksand', sans-serif;
+    padding: 1%;
+    font-size: 2em;
+    color: black;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.089);
+    border-radius: 8px;
+    box-shadow: 0 5px 0.5px rgb(72, 255, 0);
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.3s ease;
+    flex: 1;
+    
+    
+}
+
+.daycare-item:hover {
+    background-color: #ecf0f123;
+    transform: translateY(-5px); 
+    box-shadow: 0 8px 1px rgba(0, 0, 0, 0.1); 
+
+}
+
+.logoimss {
+    width: 20%;
+    flex: 1;
+    position: fixed;
+    bottom: 50px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    
+}
+.content h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 300%;
+    color : rgba(114, 114, 114, 0.74);
+    margin-top: 1;
+    text-shadow: 1px 1px 1px black;
+}
