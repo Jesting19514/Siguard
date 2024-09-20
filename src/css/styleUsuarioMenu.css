@@ -143,12 +143,7 @@ body {
 }
 
 .edit-button {
-    background-color: #3498db4f;
-    color: white;
-}
-
-.edit-button:hover {
-    background-color: #2980b9;
+    background-color: #09988c00;
 }
 
 .daycare-item {
@@ -165,6 +160,7 @@ body {
     transition: background-color 0.3s ease;
     flex: 1;
     margin-bottom: 0.8em;
+    width: 95%;
 }
 
 .daycare-item:hover {
