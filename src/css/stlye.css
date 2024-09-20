@@ -163,9 +163,9 @@ body {
 .content h1 {
     font-family: 'Quicksand', sans-serif;
     font-size: 300%;
-    color: black;
+    color: gray;
     margin-top: 1;
-    text-shadow: 1px 1px 10px grey;
+    text-shadow: 1px 1px 3px rgb(0, 0, 0);
 }
 .back-button {
     font-family: 'Quicksand', sans-serif;
