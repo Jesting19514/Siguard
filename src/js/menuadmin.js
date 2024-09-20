@@ -30,3 +30,12 @@ function deleteDaycare(button) {
         daycareItem.remove();
     }
 }
+// Seleccionar el botón y el contenedor del menú -----------Ruben_Prueba-----------------
+const toggleButton = document.getElementById('toggle-doc');
+const daycareItemContainer = toggleButton.closest('.daycare-item-container');
+
+// Añadir un evento de click para activar/desactivar la clase "active"
+toggleButton.addEventListener('click', function() {
+    daycareItemContainer.classList.toggle('active');
+});
+// -----------------Ruben_Prueba-----------------------
