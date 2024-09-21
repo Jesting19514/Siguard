@@ -154,7 +154,7 @@ body {
     background: white;
     border: 1px solid rgba(0, 0, 0, 0.089);
     border-radius: 8px;
-    box-shadow: 0 5px 0.5px rgba(0, 0, 0, 0.123);
+    box-shadow: 0 5px 0.5px rgba(2, 241, 34, 0.692);
     cursor: pointer;
     text-align: left;
     transition: background-color 0.3s ease;
@@ -166,7 +166,7 @@ body {
 .daycare-item:hover {
     background-color: #ecf0f123;
     transform: translateY(-5px); /* Mueve el elemento 5px hacia arriba */
-    box-shadow: 0 8px 1px rgba(0, 0, 0, 0.1); /* Aumenta la sombra para un efecto más pronunciado */
+    box-shadow: 0 8px 1px rgba(2, 241, 34, 0.548); 
 }
 
 .logoimss {
@@ -187,8 +187,55 @@ body {
 
 .content h1 {
     font-family: 'Quicksand', sans-serif;
-    font-size: 200%;
-    color: black;
+    font-size: 300%;
+    color: gray;
     margin-top: 1;
-    text-shadow: 1px 1px 10px grey;
+    text-shadow: 1px 1px 3px rgb(0, 0, 0);
+}
+.daycare-item2 {
+    font-family: 'Quicksand', sans-serif;
+    padding: 1%;
+    font-size: 2em;
+    color: black;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.089);
+    border-radius: 8px;
+    box-shadow: 0 5px 0.5px rgba(255, 145, 0, 0.692);
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.3s ease;
+    flex: 1;
+    word-wrap: break-word; /* Permite saltos de línea si el texto es muy largo */
+    white-space: normal;  /* Permite que el texto ocupe varias líneas */    
+    word-break: break-word; /* Asegura que el texto se rompa si es muy largo */
+    width: 95%;
+}
+.daycare-item2:hover {
+    background-color: #ecf0f123;
+    transform: translateY(-5px); 
+    box-shadow: 0 8px 1px rgba(255, 145, 0, 0.438); 
+
+}
+.daycare-item3 {
+    font-family: 'Quicksand', sans-serif;
+    padding: 1%;
+    font-size: 2em;
+    color: black;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.089);
+    border-radius: 8px;
+    box-shadow: 0 5px 0.5px rgba(241, 2, 2, 0.692);
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.3s ease;
+    flex: 1;
+    word-wrap: break-word; /* Permite saltos de línea si el texto es muy largo */
+    white-space: normal;  /* Permite que el texto ocupe varias líneas */    
+    word-break: break-word; /* Asegura que el texto se rompa si es muy largo */
+    width: 95%;
+}
+.daycare-item3:hover {
+    background-color: #ecf0f123;
+    transform: translateY(-5px); 
+    box-shadow: 0 8px 1px rgba(241, 2, 2, 0.527); 
 }

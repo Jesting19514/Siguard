@@ -139,6 +139,7 @@ body {
     word-wrap: break-word; /* Permite saltos de línea si el texto es muy largo */
     white-space: normal;  /* Permite que el texto ocupe varias líneas */    
     word-break: break-word; /* Asegura que el texto se rompa si es muy largo */
+    width: 95%;
 }
 .daycare-item2:hover {
     background-color: #ecf0f123;
@@ -162,6 +163,7 @@ body {
     word-wrap: break-word; /* Permite saltos de línea si el texto es muy largo */
     white-space: normal;  /* Permite que el texto ocupe varias líneas */    
     word-break: break-word; /* Asegura que el texto se rompa si es muy largo */
+    width: 95%;
 }
 .daycare-item3:hover {
     background-color: #ecf0f123;
