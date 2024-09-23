@@ -1,13 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Quicksand:wght@300..700&display=swap');
 
 body {
-    
     margin: 0;
     padding: 0;
     display: flex;
     height: 100vh;
     background-color: #ffeee021;
-    scrollbar-color: #0f605c #f1f1f1;
 }
 
 .sidebar {
@@ -27,6 +25,7 @@ body {
     margin-top: 1;
     text-shadow: 1px 1px 10px black;
 }
+
 .content {
     width: 80%;
     padding: 20px;
@@ -36,27 +35,66 @@ body {
 }
 
 #daycare-list {
-    max-height: 90%;
+    max-height: 93%;
     overflow-y: auto;
     border: none; 
     margin: 0px 0;
     padding: 0.8em;
 }
+
 .daycare-item-container {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 10px;
-    margin-bottom: 1.5em;
 }
-.back-button {
-    font-family: 'Quicksand', sans-serif;
-    text-shadow: 1px 1px 10px black;
+
+.menu-input {
+    display: none;
+    margin-top: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Estilo para los labels */
+.menu-input label {
+    font-family: 'Quicksand', sans-serif; /* Aplicar la fuente */
+    margin-right: 10px;
+    color: black; /* Color del texto del label */
+}
+
+/* Estilo para los inputs */
+.menu-input input {
+    width: 150px;
+    padding: 5px;
+    font-family: 'Quicksand', sans-serif; /* Aplicar la fuente */
+    font-size: 1em;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    background-color: #838383; /* Color de fondo gris */
+    color: white; /* Color del texto del input */
+    margin-right: 20px;
+}
+
+.daycare-item.active {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Sombra más grande */
+    background-color: #f0f0f0; /* Cambia el fondo si lo deseas */
+    transform: translateY(-5px); /* Movimiento hacia arriba */
+    transition: all 0.5s ease; /* Animación suave */
+}
+
+.daycare-item-container.active .menu-input {
+    display: flex; /* Cambiado a flex para organizar los inputs en horizontal */
+    opacity: 1;
+}
+
+.add-button {
     position: fixed;
     bottom: 20px;
-    left: 23%;
+    right: 20px;
     padding: 10px 100px;
-    font-size: 20px;
-    background-color: #9e9e9eb4;
+    font-size: 14px;
+    background-color: #27ae60;
     color: white;
     border: none;
     border-radius: 5px;
@@ -64,9 +102,48 @@ body {
     transition: background-color 0.3s ease;
 }
 
-.back-button:hover {
-    background-color: #9e9e9e;
-    transform: translateY(-5px); 
+.add-button:hover {
+    background-color: #219150;
+}
+
+.report-button {
+    position: fixed;
+    bottom: 20px;
+    left: 33em;
+    padding: 10px 100px;
+    font-size: 14px;
+    background-color: #838383;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.report-button:hover {
+    background-color: #000000;
+}
+
+.delete-button, .edit-button {
+    padding: 10px 15px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-button {
+    background-color: #e74d3c77;
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: #c0392b;
+}
+
+.edit-button {
+    background-color: #09988c00;
 }
 
 .daycare-item {
@@ -82,26 +159,14 @@ body {
     text-align: left;
     transition: background-color 0.3s ease;
     flex: 1;
-    word-wrap: break-word; /* Permite saltos de línea si el texto es muy largo */
-    white-space: normal;  /* Permite que el texto ocupe varias líneas */    
-    word-break: break-word; /* Asegura que el texto se rompa si es muy largo */
+    margin-bottom: 0.8em;
+    width: 95%;
 }
-#daycare-list h1 {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 300%;
-    color: black;
-    margin: 0 auto; /* Centra el título */
-    text-shadow: 1px 1px 10px grey;
-    padding: 0; /* Asegura que no haya padding extra */
-    width: fit-content; /* Ajusta el ancho al contenido */
-    margin-left: 10px; /* Reduce el margen izquierdo */
-    margin-right: 10px; /* Reduce el margen derecho */
-}
+
 .daycare-item:hover {
     background-color: #ecf0f123;
-    transform: translateY(-5px); 
+    transform: translateY(-5px); /* Mueve el elemento 5px hacia arriba */
     box-shadow: 0 8px 1px rgba(2, 241, 34, 0.548); 
-
 }
 
 .logoimss {
@@ -113,7 +178,11 @@ body {
     border: none;
     border-radius: 5px;
     transition: background-color 0.3s ease;
-    
+}
+
+.icon {
+    width: 20px;
+    cursor: pointer;
 }
 
 .content h1 {
