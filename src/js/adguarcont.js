@@ -1,8 +1,9 @@
 let selectedButton = null; // Variable para almacenar el botón seleccionado
 let existingDates = {}; // Objeto para almacenar fechas existentes para todos los documentos
 
+// Abrir el selector de fechas cuando se hace clic en el botón de edición
 function openDatePicker(button) {
-    selectedButton = button; // Almacenar el botón en el que se ha hecho clic
+    selectedButton = button.previousElementSibling; // Almacenar el botón del documento asociado
     document.getElementById('date-modal').style.display = 'block'; // Mostrar el modal
 }
 
@@ -14,7 +15,7 @@ function formatDate(dateString) {
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = String(date.getFullYear()).slice(-2); // Obtener los últimos dos dígitos del año
+    const year = String(date.getFullYear()).slice(-2); // Solo dos dígitos del año
     return `${day}/${month}/${year}`;
 }
 
@@ -39,67 +40,47 @@ function saveDates() {
     const endDate = document.getElementById('end-date').value;
 
     if (startDate && endDate) {
-        // Validar las fechas antes de guardar
-        if (!validateDates(startDate, endDate)) {
-            return; // Salir si la validación falla
-        }
-
-        // Permitir reutilizar fechas en diferentes documentos
-        const buttonKey = selectedButton.textContent.trim().split('\n')[0]; // Usar solo el nombre del documento
-
         const formattedStartDate = formatDate(startDate);
         const formattedEndDate = formatDate(endDate);
 
-        // Almacenar fechas para el botón actual
-        existingDates[buttonKey] = { start: formattedStartDate, end: formattedEndDate };
+        // Asegurarse de que el botón solo contenga el nombre, sin fechas previas
+        const buttonContent = selectedButton.textContent.split('Fecha de inicio')[0].trim();
 
-        // Actualizar el botón con las nuevas fechas
-        selectedButton.innerHTML = `<span class="document-name">${buttonKey}</span><br><span class="date-text">Fecha de inicio: ${formattedStartDate}<br>Fecha de término: ${formattedEndDate}</span>`;
-        closeModal(); // Ocultar el modal después de guardar
+        // Actualizar el contenido del botón con el nombre del documento y las nuevas fechas
+        selectedButton.innerHTML = `${buttonContent}<br><span class="date-text">Fecha de inicio: ${formattedStartDate}<br>Fecha de término: ${formattedEndDate}</span>`;
+        
+        closeModal(); // Ocultar el modal después de guardar las fechas
+
+        // Verificar fechas
+        checkDatesAndUpdate();
     } else {
         alert('Por favor, selecciona ambas fechas.');
     }
 }
-// Actualiza el botón con las nuevas fechas
 
 
-function editName(button) {
-    const nameElement = button.previousElementSibling.querySelector('.document-name'); // Selecciona solo el nombre
-    const currentName = nameElement.textContent.trim(); // Obtén solo el nombre
-    const newName = prompt('Ingrese el nuevo nombre:', currentName);
-    
-    if (newName !== null && newName !== "") {
-        // Mantener la fecha existente
-        const existingDateInfo = existingDates[currentName] ? `<br><span class="date-text">Fecha de inicio: ${existingDates[currentName].start}<br>Fecha de término: ${existingDates[currentName].end}</span>` : '';
-        
-        // Cambia solo el nombre
-        nameElement.innerHTML = newName;
-
-        // Actualizar las fechas en el objeto existingDates
-        existingDates[newName] = existingDates[currentName]; // Copiar las fechas a la nueva clave
-        delete existingDates[currentName]; // Eliminar las fechas de la clave anterior
-    }
+// Función que no hace nada cuando se hace clic en el botón del documento
+function doNothing() {
+    // No hace nada
 }
-document.getElementById('daycare-button').addEventListener('click', function() {
-    const inputField = document.getElementById('button-name-input');
-    const confirmButton = document.getElementById('confirm-name-button');
+function checkDatesAndUpdate() {
+    const today = new Date();
+    const twoWeeksInMillis = 14 * 24 * 60 * 60 * 1000; // Milisegundos en 2 semanas
 
-    // Mostrar el campo de entrada y el botón de confirmación
-    inputField.style.display = 'inline';
-    confirmButton.style.display = 'inline';
-});
+    // Recorremos todos los botones para verificar las fechas
+    document.querySelectorAll('.daycare-item').forEach(button => {
+        const dateText = button.querySelector('.date-text');
+        if (dateText) {
+            const endDateText = dateText.innerHTML.split('Fecha de término: ')[1];
+            const endDate = new Date(endDateText.split('<br>')[0]);
 
-document.getElementById('confirm-name-button').addEventListener('click', function() {
-    const newName = document.getElementById('button-name-input').value;
-    const daycareButton = document.getElementById('daycare-button');
+            // Calcular la diferencia entre la fecha actual y la fecha final
+            const timeDifference = endDate - today;
 
-    // Cambiar el nombre del botón
-    daycareButton.textContent = newName;
-
-    // Ocultar el campo de entrada y el botón de confirmación
-    document.getElementById('button-name-input').style.display = 'none';
-    document.getElementById('confirm-name-button').style.display = 'none';
-});
-
-
-
+            // Aquí podrías añadir lógica adicional si necesitas alertar al usuario u otra acción
+            if (timeDifference <= twoWeeksInMillis && timeDifference > 0) {
+                console.log("Faltan menos de dos semanas para la fecha final.");
+            }
+        }
+    });
+}
