@@ -36,9 +36,8 @@ body {
 }
 
 #daycare-list {
-    max-height: 90%;
+    max-height: 42em;
     overflow-y: auto;
-    border: none; 
     margin: 0px 0;
     padding: 0.8em;
 }
@@ -92,15 +91,11 @@ body {
 }
 
 #daycare-list h1 {
-    font-family: 'Monserrat', sans-serif;
-    font-size: 300%;
-    color: black;
-    margin: 0 auto; /* Centra el título */
-    text-shadow: 1px 1px 10px grey;
-    padding: 0; /* Asegura que no haya padding extra */
-    width: fit-content; /* Ajusta el ancho al contenido */
-    margin-left: 10px; /* Reduce el margen izquierdo */
-    margin-right: 10px; /* Reduce el margen derecho */
+    max-height: 90%;
+    overflow-y: auto;
+    border: none; 
+    margin: 0px 0;
+    padding: 0.8em;
 }
 
 
@@ -243,4 +238,8 @@ body {
     box-sizing: border-box;
     transition: all 0.3s ease;
     margin-top: auto;
+}
+.left-buttons {
+    display: flex;
+    gap: 20px; 
 }
