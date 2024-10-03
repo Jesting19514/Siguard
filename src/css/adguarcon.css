@@ -44,6 +44,7 @@ body {
 .daycare-item-container {
     display: flex;
     align-items: center;
+    justify-content: space-between; /* Asegura que los elementos se distribuyan a ambos extremos */
     gap: 10px;
     margin-bottom: 1.5em;
 }
@@ -160,6 +161,20 @@ body {
     line-height: 1.5;     /* Adjust line height for readability */
     word-break: break-word; /* Ensure long words wrap correctly */
 }
+.date-container {
+    flex-basis: 100%; /* Asegura que las fechas se pongan en una nueva línea */
+    text-align: left; /* Alinea las fechas a la izquierda */
+    margin-top: 5px; /* Añade un pequeño margen superior para separar el contenido */
+}
+/* Nuevas reglas para asegurarse de que los elementos mantengan su disposición */
+.daycare-item-container .daycare-item,
+.daycare-item-container .edit-button {
+    order: 1; /* Asegura que el documento y el botón mantengan su orden en la línea principal */
+}
+
+.daycare-item-container .date-container {
+    order: 2; /* Las fechas siempre aparecerán después en una nueva línea */
+}
 .daycare-item .date-text,
 .daycare-item2 .date-text,
 .daycare-item3 .date-text {
@@ -173,8 +188,10 @@ body {
     border: none;           /* Eliminar borde */
 }
 .edit-button {
-    background-color: #3498db00;
-    opacity: 0.5;
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 }
 .edit-button:hover {
     background-color: #297fb900;
