@@ -1,11 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Quicksand:wght@300..700&display=swap');
 
 body {
+    
     margin: 0;
     padding: 0;
     display: flex;
     height: 100vh;
     background-color: #ffeee021;
+    scrollbar-color: #0f605c #f1f1f1;
 }
 
 .sidebar {
@@ -25,7 +27,6 @@ body {
     margin-top: 1;
     text-shadow: 1px 1px 10px black;
 }
-
 .content {
     width: 80%;
     padding: 20px;
@@ -35,117 +36,39 @@ body {
 }
 
 #daycare-list {
-    max-height: 93%;
+    max-height: 90%;
     overflow-y: auto;
     border: none; 
     margin: 0px 0;
     padding: 0.8em;
 }
-
 .daycare-item-container {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 10px;
+    margin-bottom: 1.5em;
 }
-
-.menu-input {
-    display: none;
-    margin-top: 10px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-/* Estilo para los labels */
-.menu-input label {
-    font-family: 'Quicksand', sans-serif; /* Aplicar la fuente */
-    margin-right: 10px;
-    color: black; /* Color del texto del label */
-}
-
-/* Estilo para los inputs */
-.menu-input input {
-    width: 150px;
-    padding: 5px;
-    font-family: 'Quicksand', sans-serif; /* Aplicar la fuente */
-    font-size: 1em;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    background-color: #838383; /* Color de fondo gris */
-    color: white; /* Color del texto del input */
-    margin-right: 20px;
-}
-
-.daycare-item.active {
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Sombra más grande */
-    background-color: #f0f0f0; /* Cambia el fondo si lo deseas */
-    transform: translateY(-5px); /* Movimiento hacia arriba */
-    transition: all 0.5s ease; /* Animación suave */
-}
-
-.daycare-item-container.active .menu-input {
-    display: flex; /* Cambiado a flex para organizar los inputs en horizontal */
-    opacity: 1;
-}
-
-.add-button {
+.back-button {
+    font-family: 'Monserrat', sans-serif;
     position: fixed;
     bottom: 20px;
-    right: 20px;
+    left: 23%;
     padding: 10px 100px;
-    font-size: 14px;
-    background-color: #27ae60;
-    color: white;
-    border: none;
+    font-size: 20px;
+    background-color: #9e9e9e6e;
+    color: darkgray;
+    border: 1px solid darkgray;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-.add-button:hover {
-    background-color: #219150;
+.back-button:hover {
+    background-color: #9e9e9e46;
+    transform: translateY(-9px); 
 }
 
-.report-button {
-    position: fixed;
-    bottom: 20px;
-    left: 33em;
-    padding: 10px 100px;
-    font-size: 14px;
-    background-color: #838383;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.report-button:hover {
-    background-color: #000000;
-}
-
-.delete-button, .edit-button {
-    padding: 10px 15px;
-    font-size: 14px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.delete-button {
-    background-color: #e74d3c77;
-    color: white;
-}
-
-.delete-button:hover {
-    background-color: #c0392b;
-}
-
-.edit-button {
-    background-color: #09988c00;
-}
-
+/* Parte inferior del botón con borde verde */
 .daycare-item {
     font-family: 'Quicksand', sans-serif;
     padding: 1%;
@@ -154,19 +77,40 @@ body {
     background: white;
     border: 1px solid rgba(0, 0, 0, 0.089);
     border-radius: 8px;
-    box-shadow: 0 5px 0.5px rgba(0, 0, 0, 0.123);
     cursor: pointer;
     text-align: left;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Añadido box-shadow a la transición */
     flex: 1;
-    margin-bottom: 0.8em;
-    width: 95%;
+    word-wrap: break-word;
+    white-space: normal;
+    word-break: break-word;
+    position: relative; /* Necesario para ::after */
 }
-
+/* Parte inferior siempre visible con color verde */
+.daycare-item::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 10px; /* Define la altura de la parte inferior verde */
+    background-color: rgba(0, 128, 0, 0);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+#daycare-list h1 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 300%;
+    color: black;
+    margin: 0 auto; /* Centra el título */
+    text-shadow: 1px 1px 10px grey;
+    padding: 0; /* Asegura que no haya padding extra */
+    width: fit-content; /* Ajusta el ancho al contenido */
+    margin-left: 10px; /* Reduce el margen izquierdo */
+    margin-right: 10px; /* Reduce el margen derecho */
+}
 .daycare-item:hover {
-    background-color: #ecf0f123;
-    transform: translateY(-5px); /* Mueve el elemento 5px hacia arriba */
-    box-shadow: 0 8px 1px rgba(0, 0, 0, 0.1); /* Aumenta la sombra para un efecto más pronunciado */
+    transform: translateY(-5px); 
 }
 
 .logoimss {
@@ -178,17 +122,108 @@ body {
     border: none;
     border-radius: 5px;
     transition: background-color 0.3s ease;
-}
-
-.icon {
-    width: 20px;
-    cursor: pointer;
+    
 }
 
 .content h1 {
     font-family: 'Quicksand', sans-serif;
-    font-size: 200%;
-    color: black;
+    font-size: 300%;
+    color: gray;
     margin-top: 1;
-    text-shadow: 1px 1px 10px grey;
+    text-shadow: 1px 1px 3px rgb(0, 0, 0);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal h2 {
+    margin: 0;
+}
+
+.modal input {
+    width: 100%;
+    padding: 5px;
+}
+
+.modal button {
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+.daycare-item, .daycare-item2, .daycare-item3 {
+    white-space: normal;  /* Allow text to wrap inside the button */
+    text-align: left;     /* Align text to the left */
+    line-height: 1.5;     /* Adjust line height for readability */
+    word-break: break-word; /* Ensure long words wrap correctly */
+}
+.daycare-item .date-text,
+.daycare-item2 .date-text,
+.daycare-item3 .date-text {
+    font-size: 0.8em; /* Smaller font for the dates */
+    color: #555; /* Optional: lighter color for the dates */
+}
+.button-icon {
+    display: flex;           /* Asegúrate de que se alineen correctamente */
+    align-items: center;    /* Alinear verticalmente */
+    background: transparent; /* Eliminar fondo */
+    border: none;           /* Eliminar borde */
+}
+.edit-button {
+    background-color: #3498db00;
+    opacity: 0.5;
+}
+.edit-button:hover {
+    background-color: #297fb900;
+    transform: translateY(-5px); 
+    opacity: 1;
+}
+.edit-button {
+    padding: 15px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.icon {
+    width: 40px;
+    cursor: pointer;
+    background: transparent; /* Eliminar fondo del icono */
+    border: none;            /* Eliminar borde del icono */
+    
+}
+#button-name-input {
+    padding: 5px;
+    margin-left: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#confirm-name-button {
+    padding: 5px 10px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50; /* Cambia el color según tu diseño */
+    color: white;
+    cursor: pointer;
+}
+
+#confirm-name-button:hover {
+    background-color: #45a049;
 }
