@@ -42,8 +42,17 @@ function addDaycare() {
 }
 
 
+<<<<<<< HEAD
 
 
+=======
+function deleteDaycare(button) {
+    if (confirm("¿Está seguro de que desea eliminar esta guardería?")) {
+        var daycareItem = button.parentElement;
+        daycareItem.remove();
+    }
+}
+>>>>>>> origin/Ruben_Pruebas
 // Seleccionar el botón y el contenedor del menú -----------Ruben_Prueba-----------------
 const toggleButton = document.getElementById('toggle-doc');
 const daycareItemContainer = toggleButton.closest('.daycare-item-container');
@@ -52,3 +61,38 @@ const daycareItemContainer = toggleButton.closest('.daycare-item-container');
 toggleButton.addEventListener('click', function() {
     daycareItemContainer.classList.toggle('active');
 });
+<<<<<<< HEAD
+=======
+// -----------------Ruben_Prueba-----------------------
+function toggleDaycareContent(button) {
+    // Alternar la clase 'expanded' para cambiar el tamaño del botón
+    button.classList.toggle("expanded");
+
+    // Verificar si el texto adicional ya existe
+    var extraText = button.querySelector(".extra-text");
+
+    if (button.classList.contains("expanded")) {
+        // Si el botón se expandió y el texto no existe, lo añadimos
+        if (!extraText) {
+            var text = document.createElement("span");
+            text.classList.add("extra-text");
+            text.textContent = "Hola Mundo";
+            button.appendChild(text);
+        }
+    } else {
+        // Si se colapsa, removemos el texto adicional
+        if (extraText) {
+            extraText.remove();
+        }
+    }
+}
+
+// Funciones de ejemplo para los botones de editar y eliminar
+function editName(button) {
+    alert("Editar guardería");
+}
+
+function deleteDaycare(button) {
+    alert("Eliminar guardería");
+}
+>>>>>>> origin/Ruben_Pruebas
