@@ -1,11 +1,11 @@
 const { app, BrowserWindow, ipcMain, Notification } = require('electron');
-const express = require('express');
-const { MongoClient } = require('mongodb');
+//const express = require('express');
+//const { MongoClient } = require('mongodb');
 const path = require('path');
 
 let mainWindow;
 
-// Configura el servidor Express
+/*/ Configura el servidor Express
 const serverApp = express();
 const port = 3000;
 
@@ -36,7 +36,7 @@ serverApp.get('/api/daycares', async (req, res) => {
 serverApp.listen(port, () => {
     console.log(`Servidor escuchando en http://localhost:${port}`);
 });
-
+*/
 // Función para crear la ventana principal de la aplicación
 function createWindow() {
     mainWindow = new BrowserWindow({
