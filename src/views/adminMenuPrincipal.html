@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu Admin</title>
-    <link rel="stylesheet" href="../css/stlye.css">
+    <link rel="stylesheet" href="../css/stlye_AdminMenuPrincipal.css">
 </head>
 <body>
     <div class="sidebar">
@@ -13,16 +13,35 @@
     </div>
     <div class="content">
         
-        <div id="daycare-list">
-            <div class="daycare-item-container">
-                <button class="daycare-item" onclick="location.href='adminguarCon.html'">Guardería n</button>
-                <button class="edit-button" onclick="editName(this)"><img src="../../assets/images/editIcon_1.png" class="icon"></button>
-                <button class="delete-button" onclick="deleteDaycare(this)"><img src="../../assets/images/deleteIcon2.png" class="icon"></button>
-            </div>
+        <div id="daycare-list"></div>
+        <div class="button-container">
+            <button class="report-button" onclick="location.href='reportes.html'">Reportes</button>
+            <button class="test-button" onclick="sendTestNotification()">Test</button>
+            <button class="add-button" onclick="addDaycare()">Agregar Guardería</button>
         </div>
-        <button class="report-button" onclick="location.href='reportes.html'">Reportes</button>
-        <button class="add-button" onclick="addDaycare()">Agregar Guardería</button>
+        
+        <!-- Modal HTML -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title"></h2>
+            <input type="text" id="modal-input" class="modal-input" maxlength="150" placeholder="Ingrese el nombre de la guardería" />
+<button class="modal-confirm" onclick="modalConfirm()">Confirmar</button>
+        </div>
     </div>
-    <script src="/src/js/menuadmin.js"></script>
+<div id="delete-confirm-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" onclick="closeDeleteConfirmModal()">&times;</span>
+        <h2>Confirmar Eliminación</h2>
+        <p>Escriba <strong>DELETE</strong> para confirmar la eliminación:</p>
+        <input type="text" id="delete-confirm-input" class="modal-input" maxlength="6" placeholder="DELETE" />
+        <button class="modal-confirm" onclick="confirmDelete()">Confirmar</button>
+        <div id="delete-error" style="display: none; color: red; margin-top: 10px;">Texto incorrecto. Debes escribir "DELETE".</div>
+    </div>
+</div>
+
+
+
+    <script src="../js/menuadmin.js"></script>
 </body>
 </html>

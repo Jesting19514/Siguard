@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,24 +8,77 @@
 </head>
 <body>
     <div class="sidebar">
-        <h2>ADMIN</h2> 
+        <h2>ADMIN</h2>
+        
         <img src="../../assets/images/imss_logo.png" class="logoimss">
     </div>
     <div class="content">
-        <h1>Guarderia n</h1>
+        <h1>Guardería n</h1>
+        <p class="contract-dates">Contrato: De 03/09/2008 a 15/6/2029</p>
         <div id="daycare-list">
             <div class="daycare-item-container">
-                <button class="daycare-item" onclick="location.href='prueba.html'">Documento 1</button>
+                <button class="daycare-item" onclick="toggleDates(this)">Documento 1</button>
+                <button class="edit-button" onclick="openDatePicker(this)"><img src="../../assets/images/editafecha.png" class="icon"></button>
             </div>
             <div class="daycare-item-container">
-                <button class="daycare-item2" onclick="location.href='prueba.html'">Documento 2</button>
+                <button class="daycare-item" onclick="toggleDates(this)">Documento 2</button>
+                <button class="edit-button" onclick="openDatePicker(this)"><img src="../../assets/images/editafecha.png" class="icon"></button>
             </div>
             <div class="daycare-item-container">
-                <button class="daycare-item3" onclick="location.href='prueba.html'">Documento 3</button>
+                <button class="daycare-item" onclick="toggleDates(this)">Documento 3</button>
+                <button class="edit-button" onclick="openDatePicker(this)"><img src="../../assets/images/editafecha.png" class="icon"></button>
             </div>
+            <div class="daycare-item-container">
+                <button class="daycare-item" onclick="toggleDates(this)">Documento 4</button>
+                <button class="edit-button" onclick="openDatePicker(this)"><img src="../../assets/images/editafecha.png" class="icon"></button>
+            </div>
+            <div class="daycare-item-container">
+                <button class="daycare-item" onclick="toggleDates(this)">Documento 5</button>
+                <button class="edit-button" onclick="openDatePicker(this)"><img src="../../assets/images/editafecha.png" class="icon"></button>
+            </div>
+            <div class="daycare-item-container">
+                <button class="daycare-item" onclick="toggleDates(this)">Documento 1</button>
+                <button class="edit-button" onclick="openDatePicker(this)"><img src="../../assets/images/editafecha.png" class="icon"></button>
+            </div>
+            <div class="daycare-item-container">
+                <button class="daycare-item" onclick="toggleDates(this)">Documento 2</button>
+                <button class="edit-button" onclick="openDatePicker(this)"><img src="../../assets/images/editafecha.png" class="icon"></button>
+            </div>
+            <div class="daycare-item-container">
+                <button class="daycare-item" onclick="toggleDates(this)">Documento 3</button>
+                <button class="edit-button" onclick="openDatePicker(this)"><img src="../../assets/images/editafecha.png" class="icon"></button>
+            </div>
+            <div class="daycare-item-container">
+                <button class="daycare-item" onclick="toggleDates(this)">Documento 4</button>
+                <button class="edit-button" onclick="openDatePicker(this)"><img src="../../assets/images/editafecha.png" class="icon"></button>
+            </div>
+            <div class="daycare-item-container">
+                <button class="daycare-item" onclick="toggleDates(this)">Documento 5</button>
+                <button class="edit-button" onclick="openDatePicker(this)"><img src="../../assets/images/editafecha.png" class="icon"></button>
+            </div>
+            
         </div>
-        <button class="back-button" onclick="location.href='adminMenuPrincipal.html'">Regresar</button>
     </div>
-    <script src="/IndieCodeV3/src/js/adguarcont.js"></script>
+
+    <!-- Modal for date selection -->
+    <div id="date-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>Selecciona las fechas</h2>
+            <label for="start-date">Fecha inicial:</label>
+            <input type="date" id="start-date">
+            <br><br>
+            <label for="end-date">Fecha final:</label>
+            <input type="date" id="end-date">
+            <br><br>
+            <button onclick="saveDates()">Aceptar</button>
+            <button onclick="closeModal()">Cancelar</button>
+        </div>
+    </div>
+    
+    
+    <script src="/src/js/adguarcont.js"></script>
+    <div class="button-container"></div>
+        <button class="back-button" onclick="location.href='adminMenuPrincipal.html'">Regresar</button>
 </body>
+
 </html>
