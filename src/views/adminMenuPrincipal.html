@@ -12,22 +12,37 @@
         <img src="../../assets/images/imss_logo.png" class="logoimss">
     </div>
     <div class="content">
-        
+        <!-- Barra de búsqueda -->
+        <input type="text" id="search-bar" class="search-bar" placeholder="Buscar guardería..." oninput="filterDaycares()">
+    
         <div id="daycare-list"></div>
+    
         <div class="button-container">
-            <button class="report-button" onclick="location.href='reportes.html'">Reportes</button>
+            <button class="report-button" onclick="location.href=''">Reportes</button>
             <button class="test-button" onclick="sendTestNotification()">Test</button>
             <button class="add-button" onclick="addDaycare()">Agregar Guardería</button>
         </div>
+    </div>
+    
         
-        <!-- Modal HTML -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeModal()">&times;</span>
-            <h2 id="modal-title"></h2>
-            <input type="text" id="modal-input" class="modal-input" maxlength="150" placeholder="Ingrese el nombre de la guardería" />
-<button class="modal-confirm" onclick="modalConfirm()">Confirmar</button>
-        </div>
+      <!-- Modal HTML -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" onclick="closeModal()">&times;</span>
+        <h2 id="modal-title"></h2>
+        <input type="text" id="modal-input" class="modal-input" maxlength="150" placeholder="Ingrese el nombre de la guardería" />
+
+        <!-- Campos de fecha -->
+        <label for="start-date">Fecha de Inicio:</label>
+        <input type="date" id="start-date" class="modal-input" />
+
+        <label for="end-date">Fecha de Término:</label>
+        <input type="date" id="end-date" class="modal-input" />
+
+        <button id="modal-confirm" onclick="modalConfirm()">Confirmar</button>
+    </div>
+</div>
+
     </div>
 <div id="delete-confirm-modal" class="modal">
     <div class="modal-content">
@@ -41,7 +56,7 @@
 </div>
 
 
-
+    
     <script src="../js/menuadmin.js"></script>
 </body>
 </html>

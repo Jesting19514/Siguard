@@ -1,11 +1,10 @@
-// preload.js
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('ipcRenderer', {
-    send: (channel, data) => {
-        const validChannels = ['send-notification']; // Solo permitir estos canales
+    send: (channel, title, body) => {
+        const validChannels = ['send-notification']; 
         if (validChannels.includes(channel)) {
-            ipcRenderer.send(channel, data);
+            ipcRenderer.send(channel, { title, body }); 
         }
     },
 });
