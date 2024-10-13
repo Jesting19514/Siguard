@@ -1,17 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Quicksand:wght@300..700&display=swap');
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Quicksand', sans-serif;
     margin: 0;
     padding: 0;
+    display: flex;
+    height: 100vh;
+    background-color: #ffeee021;
 }
 
 .sidebar {
-    width: 250px;
-    background-color: #333;
-    color: white;
+    width: 20%;
+    background: linear-gradient(60deg, #0f605c, #09988d);
     padding: 20px;
-    position: fixed;
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sidebar h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3em;
+    color: white;
+    margin: 0;
+    text-shadow: 1px 1px 10px black;
 }
 
 .logoimss {
@@ -19,111 +31,6 @@ body {
     height: auto;
 }
 
-.content {
-    margin-left: 260px; /* Leave space for the sidebar */
-    padding: 20px;
-}
-
-h1 {
-    color: #333;
-}
-
-.contract-dates {
-    font-size: 16px;
-    margin: 10px 0;
-}
-
-.daycare-item-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.daycare-item {
-    flex: 1;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 5px 5px rgba(128, 128, 128, 0.692);
-}
-
-.edit-button {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-}
-
-.shadow-box {
-    width: 100%;
-    height: 4px;
-    margin-top: 5px;
-    display: none; /* Hidden by default */
-}
-
-.checkbox-container {
-    margin-left: 10px;
-}
-
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-    justify-content: center;
-    align-items: center;
-    display: none; /* Hidden by default */
-}
-
-.modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    width: 300px;
-    text-align: center;
-}
-
-.back-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-/* Estilos Globales */
-body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    height: 100vh;
-    background-color: #ffeee021;
-    scrollbar-color: #0f605c #f1f1f1;
-}
-
-/* Estilos de la Sidebar */
-.sidebar {
-    width: 20%;
-    background-color: #0f605c;
-    background: linear-gradient(60deg, #0f605c, #09988d);
-    padding: 20px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-}
-
-.sidebar h2 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 300%;
-    color: white;
-    margin: 0;
-    text-shadow: 1px 1px 10px black;
-}
-
-/* Estilos de Contenido */
 .content {
     width: 80%;
     padding: 20px;
@@ -134,46 +41,19 @@ body {
 
 .content h1 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 300%;
+    font-size: 2.5em;
     color: gray;
-    margin-top: 1;
+    margin: 0;
     text-shadow: 1px 1px 3px rgb(0, 0, 0);
 }
 
 .contract-dates {
-    font-family: 'Montserrat', sans-serif; /* Matching your existing fonts */
+    font-family: 'Montserrat', sans-serif;
     font-size: 1.2em;
     color: #555;
-    margin: 0;
-    margin-top: -20px;
-    padding: 0;
+    margin: 10px 0;
 }
 
-/* Estilos de Botones */
-.back-button {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    position: fixed;
-    bottom: 20px;
-    left: 23%;
-    font-size: 20px;
-    background-color: #ffeee021;
-    color: rgb(41, 145, 206);
-    cursor: pointer;
-    padding: 10px 100px;
-    border: 1px solid rgb(41, 145, 206);
-    border-radius: 7px;
-    transition: background-color 0.3s ease;
-}
-
-.back-button:hover {
-    background-color: #ffeee02d;
-    color: #3fa2db;
-    border: 1px solid #3aabec;
-    transform: translateY(-4px); 
-}
-
-/* Estilos de Documentos */
 .daycare-item-container {
     display: flex;
     align-items: center;
@@ -185,7 +65,7 @@ body {
 .daycare-item {
     font-family: 'Montserrat', sans-serif;
     padding: 1%;
-    font-size: 2em;
+    font-size: 1.5em;
     color: black;
     background: white;
     border: 1px solid rgba(0, 0, 0, 0.089);
@@ -193,12 +73,45 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     flex: 1;
-    word-wrap: break-word;
-    position: relative; 
-    box-shadow: 0 5px 0.5px rgba(2, 241, 34, 0); 
 }
 
-/* Estilos para el Modal */
+.edit-button {
+    padding: 15px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-button:hover {
+    background-color: #297fb900;
+    transform: translateY(-5px); 
+}
+
+.icon {
+    width: 40px;
+    cursor: pointer;
+    background: transparent; 
+    border: none;            
+}
+
+.back-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    position: fixed;
+    bottom: 20px;
+    left: 23%;
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+}
+
 .modal {
     display: none;
     position: fixed;
@@ -206,7 +119,7 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     backdrop-filter: blur(9.0px);
-    background-color: rgba(255, 255, 255, 0.822);
+    background-color: rgba(255, 255, 255, 0.9);
     border: 1px solid rgb(167, 167, 167);
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -233,99 +146,4 @@ body {
     padding: 10px;
     margin-top: 10px;
     cursor: pointer;
-}
-
-/* Estilos de Cajas de Sombra de Estado */
-.shadow-box {
-    width: 100%;
-    height: 10px;
-    margin-top: 10px;
-    border-radius: 4px;
-    transition: box-shadow 0.3s ease;
-}
-
-.shadow-green { box-shadow: 0px 4px 10px rgba(0, 255, 0, 0.6); }
-.shadow-orange { box-shadow: 0px 4px 10px rgba(255, 145, 0, 0.6); }
-.shadow-red { box-shadow: 0px 4px 10px rgba(255, 0, 0, 0.6); }
-.shadow-gray { box-shadow: 0px 4px 10px rgba(169, 169, 169, 0.6); }
-
-/* Estilo del Checkbox */
-.checkbox-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.edit-checkbox {
-    transform: scale(1.5);
-    cursor: pointer;
-}
-
-.edit-checkbox:disabled {
-    cursor: not-allowed;
-    opacity: 0.6;
-}
-
-/* Estilos para Iconos */
-.icon {
-    width: 40px;
-    cursor: pointer;
-    background: transparent; 
-    border: none;            
-}
-
-/* Estilos Adicionales */
-.date-container {
-    flex-basis: 100%;
-    text-align: left; 
-    margin-top: 5px; 
-}
-
-.daycare-item .date-text {
-    font-size: 0.8em; 
-    color: #555; 
-}
-
-/* Disposición de los Elementos */
-.daycare-item-container .daycare-item,
-.daycare-item-container .edit-button {
-    order: 1; 
-}
-
-.daycare-item-container .date-container {
-    order: 2; 
-}
-
-/* Botón de Edición */
-.edit-button {
-    padding: 15px 20px;
-    font-size: 14px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.edit-button:hover {
-    background-color: #297fb900;
-    transform: translateY(-5px); 
-}
-
-/* Contenedor de Botones */
-.button-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    bottom: 20px;
-    width: 100%; 
-    padding: 0 20px;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-    margin-top: auto;
-}
-.left-buttons {
-    display: flex;
-    gap: 20px; 
 }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Admin Contratos</title>
+    <title>Menú Usuario Contratos</title> 
     <link rel="stylesheet" href="../css/styleUsuarioMenu.css"> <!-- Asegúrate de que el archivo CSS sea el correcto -->
 </head>
 <body>
@@ -21,33 +21,39 @@
                 <button class="edit-button" onclick="openDatePicker(this)">
                     <img src="../../assets/images/editafecha.png" class="icon" alt="Editar fechas">
                 </button>
+                <input type="checkbox" class="edit-checkbox" onclick="toggleCheckbox(this)">
             </div>
             <div class="daycare-item-container">
                 <button class="daycare-item" onclick="toggleDates(this)">Documento 2</button>
                 <button class="edit-button" onclick="openDatePicker(this)">
                     <img src="../../assets/images/editafecha.png" class="icon" alt="Editar fechas">
                 </button>
+                <input type="checkbox" class="edit-checkbox" onclick="toggleCheckbox(this)">
             </div>
             <div class="daycare-item-container">
                 <button class="daycare-item" onclick="toggleDates(this)">Documento 3</button>
                 <button class="edit-button" onclick="openDatePicker(this)">
                     <img src="../../assets/images/editafecha.png" class="icon" alt="Editar fechas">
                 </button>
+                <input type="checkbox" class="edit-checkbox" onclick="toggleCheckbox(this)">
             </div>
             <div class="daycare-item-container">
                 <button class="daycare-item" onclick="toggleDates(this)">Documento 4</button>
                 <button class="edit-button" onclick="openDatePicker(this)">
                     <img src="../../assets/images/editafecha.png" class="icon" alt="Editar fechas">
                 </button>
+                <input type="checkbox" class="edit-checkbox" onclick="toggleCheckbox(this)">
             </div>
             <div class="daycare-item-container">
                 <button class="daycare-item" onclick="toggleDates(this)">Documento 5</button>
                 <button class="edit-button" onclick="openDatePicker(this)">
                     <img src="../../assets/images/editafecha.png" class="icon" alt="Editar fechas">
                 </button>
+                <input type="checkbox" class="edit-checkbox" onclick="toggleCheckbox(this)">
             </div>
             <!-- Añadir más documentos aquí si es necesario -->
         </div>
+        <button class="back-button" onclick="location.href='adminMenuPrincipal.html'">Regresar</button>
     </div>
 
     <!-- Modal para la selección de fechas -->
@@ -64,9 +70,7 @@
             <button onclick="closeModal()">Cancelar</button>
         </div>
     </div>
-    
-    <script src="../js/adguarcont.js"></script>
-    <div class="button-container"></div>
-    <button class="back-button" onclick="location.href='adminMenuPrincipal.html'">Regresar</button>
+
+    <script src="../js/usuarioMenu.js"></script>
 </body>
 </html>

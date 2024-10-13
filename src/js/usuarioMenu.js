@@ -14,7 +14,7 @@
     }
 
     // Abrir el modal para seleccionar fechas
-    function openDatePicker(button) {
+    window.openDatePicker = function(button) {
         const associatedButton = button.previousElementSibling;
         const checkbox = button.nextElementSibling;
 
@@ -24,12 +24,12 @@
         } else {
             alert('Solo puedes modificar la fecha si el estado está en gris y el checkbox está marcado, y si no se ha modificado antes.');
         }
-    }
+    };
 
     // Cerrar el modal
-    function closeModal() {
+    window.closeModal = function() {
         document.getElementById('date-modal').style.display = 'none';
-    }
+    };
 
     // Formatear las fechas a DD/MM/YY
     function formatDate(dateString) {
@@ -41,7 +41,7 @@
     }
 
     // Guardar las fechas y actualizar la UI
-    function saveDates() {
+    window.saveDates = function() {
         const startDate = document.getElementById('start-date').value;
         const endDate = document.getElementById('end-date').value;
 
@@ -66,10 +66,10 @@
         } else {
             alert('Por favor, selecciona ambas fechas y asegúrate de que la fecha inicial no sea posterior a la fecha final.');
         }
-    }
+    };
 
     // Cambiar el estado del checkbox
-    function toggleCheckbox(checkbox) {
+    window.toggleCheckbox = function(checkbox) {
         const button = checkbox.previousElementSibling.previousElementSibling;
 
         if (checkbox.checked) {
@@ -80,7 +80,7 @@
             disabledButtons.delete(button);
             checkDatesAndUpdate();
         }
-    }
+    };
 
     function stopAlarms(button) {
         console.log(`Alarmas detenidas para el botón: ${button.textContent}`);
@@ -127,11 +127,5 @@
             }
         });
     }
-
-    // Asignar funciones a elementos HTML
-    window.openDatePicker = openDatePicker;
-    window.closeModal = closeModal;
-    window.saveDates = saveDates;
-    window.toggleCheckbox = toggleCheckbox;
 
 })();
