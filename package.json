@@ -1,6 +1,7 @@
 {
   "name": "siguard",
   "version": "1.0.0",
+  "type": "module",
   "main": "src/js/main.js",
   "scripts": {
     "start": "electron .",
@@ -29,6 +30,7 @@
     "define-data-property": "^1.1.4",
     "define-properties": "^1.2.1",
     "detect-node": "^2.1.0",
+    "electron-store": "^10.0.0",
     "end-of-stream": "^1.4.4",
     "env-paths": "^2.2.1",
     "es-define-property": "^1.0.0",
@@ -56,6 +58,7 @@
     "json-buffer": "^3.0.1",
     "json-stringify-safe": "^5.0.1",
     "jsonfile": "^4.0.0",
+    "jwt-decode": "^4.0.0",
     "keyv": "^4.5.4",
     "lowercase-keys": "^2.0.0",
     "matcher": "^3.0.0",

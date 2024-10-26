@@ -1,9 +1,19 @@
-const { app, BrowserWindow, ipcMain, Notification } = require("electron");
-const express = require("express");
-const { MongoClient, ObjectId } = require("mongodb");
-const path = require("path");
+import { app, BrowserWindow, ipcMain, Notification } from "electron";
+import express from "express";
+import { fileURLToPath } from "url";
+import { MongoClient, ObjectId } from "mongodb";
+import path, { dirname, join } from "path";
+//Token
+import Store from "electron-store";
+import { jwtDecode } from "jwt-decode";
+
+const store = new Store();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 let mainWindow;
+let loginWindow;
 
 const serverApp = express();
 const port = 3000;
@@ -99,61 +109,6 @@ serverApp.delete("/api/daycares/:id", async (req, res) => {
     await client.close();
   }
 });
-
-serverApp.listen(port, () => {
-  console.log(`Servidor escuchando en http://localhost:${port}`);
-});
-
-function createWindow() {
-  mainWindow = new BrowserWindow({
-    autoHideMenuBar: true,
-    width: 1920,
-    height: 1080,
-    webPreferences: {
-      nodeIntegration: true,
-      preload: path.join(__dirname, "preload.js"),
-      contextIsolation: true,
-      enableRemoteModule: false,
-    },
-  });
-  //adminMenuPrincipal
-  mainWindow.loadFile("src/views/login.html");
-
-  mainWindow.on("closed", function () {
-    mainWindow = null;
-  });
-}
-
-ipcMain.on("send-notification", (event, { title, body }) => {
-  if (typeof body === "undefined") {
-    console.error("El cuerpo de la notificación es undefined");
-    body = "Sin contenido";
-  }
-
-  const notification = new Notification({
-    title: title,
-    body: body,
-    icon: path.join(__dirname, "../../assets/images/imss_logo.png"),
-    silent: false,
-  });
-
-  notification.show();
-});
-
-app.on("ready", createWindow);
-
-app.on("window-all-closed", function () {
-  if (process.platform !== "darwin") {
-    app.quit();
-  }
-});
-
-app.on("activate", function () {
-  if (mainWindow === null) {
-    createWindow();
-  }
-});
-
 serverApp.post("/api/daycares", async (req, res) => {
   const {
     _id,
@@ -190,5 +145,86 @@ serverApp.post("/api/daycares", async (req, res) => {
       .json({ success: false, message: "Error al agregar la guardería." });
   } finally {
     await client.close();
+  }
+});
+
+serverApp.listen(port, () => {
+  console.log(`Servidor escuchando en http://localhost:${port}`);
+});
+
+function createWindow() {
+  loginWindow = new BrowserWindow({
+    autoHideMenuBar: true,
+    width: 1920,
+    height: 1080,
+    webPreferences: {
+      nodeIntegration: true,
+      preload: join(__dirname, "preload.cjs"),
+      contextIsolation: true,
+      enableRemoteModule: false,
+    },
+  });
+
+  loginWindow.loadFile("src/views/login.html");
+  //mainWindow.loadFile("src/views/adminMenuPrincipal.html");
+
+  loginWindow.on("closed", function () {
+    mainWindow = null;
+  });
+}
+
+ipcMain.on("send-notification", (event, { title, body }) => {
+  if (typeof body === "undefined") {
+    console.error("El cuerpo de la notificación es undefined");
+    body = "Sin contenido";
+  }
+
+  const notification = new Notification({
+    title: title,
+    body: body,
+    icon: path.join(__dirname, "../../assets/images/imss_logo.png"),
+    silent: false,
+  });
+
+  notification.show();
+});
+// IPC electron-store
+ipcMain.on("electron-store-get", async (event, val) => {
+  event.returnValue = store.get(val);
+});
+ipcMain.on("electron-store-set", async (event, key, val) => {
+  store.set(key, val);
+});
+ipcMain.on("jwt-decoded-get", async (event, val) => {
+  event.returnValue = jwtDecode(store.get(val));
+});
+
+ipcMain.handle("check-role", async () => {
+  const decodedToken = jwtDecode(store.get("jwtToken"));
+  const userRole = decodedToken.authorities;
+  switch (userRole) {
+    case "ADMINISTRADOR":
+      await loginWindow.loadFile("src/views/adminMenuPrincipal.html");
+      break;
+    case "DEVELOPER":
+      await loginWindow.loadFile("src/views/adminMenuPrincipal.html");
+      break;
+    case "GERENTE":
+      await loginWindow.loadFile("src/views/reportes.html");
+      break;
+  }
+});
+
+app.on("ready", createWindow);
+
+app.on("window-all-closed", function () {
+  if (process.platform !== "darwin") {
+    app.quit();
+  }
+});
+
+app.on("activate", function () {
+  if (mainWindow === null) {
+    createWindow();
   }
 });
