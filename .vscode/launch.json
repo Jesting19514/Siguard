@@ -1,0 +1,17 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Electron Main",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/js/main.js", // Ruta a tu archivo principal de Electron
+      "runtimeExecutable": "${workspaceFolder}", // Ruta al binario de Electron
+      "args": ["."], // Asegúrate de estar lanzando la aplicación desde la raíz del proyecto
+      "outputCapture": "std" // Captura la salida estándar para la depuración
+    }
+  ]
+}

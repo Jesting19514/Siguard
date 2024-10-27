@@ -6,6 +6,7 @@ import path, { dirname, join } from "path";
 //Token
 import Store from "electron-store";
 import { jwtDecode } from "jwt-decode";
+import axios from "axios";
 
 const store = new Store();
 
@@ -152,9 +153,9 @@ serverApp.listen(port, () => {
   console.log(`Servidor escuchando en http://localhost:${port}`);
 });
 
-function createWindow() {
+async function createWindow() {
   loginWindow = new BrowserWindow({
-    autoHideMenuBar: true,
+    autoHideMenuBar: false,
     width: 1920,
     height: 1080,
     webPreferences: {
@@ -164,8 +165,8 @@ function createWindow() {
       enableRemoteModule: false,
     },
   });
-
-  loginWindow.loadFile("src/views/login.html");
+  await logicaInicio();
+  //loginWindow.loadFile("src/views/login.html");
   //mainWindow.loadFile("src/views/adminMenuPrincipal.html");
 
   loginWindow.on("closed", function () {
@@ -188,30 +189,61 @@ ipcMain.on("send-notification", (event, { title, body }) => {
 
   notification.show();
 });
+//IPC Cerrar Sesion
+ipcMain.on("logout", () => {
+  store.clear();
+});
 // IPC electron-store
-ipcMain.on("electron-store-get", async (event, val) => {
-  event.returnValue = store.get(val);
+ipcMain.handle("obtenToken", async (event) => {
+  const res = store.get("jwtToken");
+  if (res) {
+    return res;
+  } else {
+    return "¡El token ya fue eliminado!";
+  }
 });
-ipcMain.on("electron-store-set", async (event, key, val) => {
-  store.set(key, val);
+ipcMain.on("guardaToken", async (event, val) => {
+  store.set("jwtToken", val);
 });
-ipcMain.on("jwt-decoded-get", async (event, val) => {
+ipcMain.on("obtenToken", async (event, val) => {
   event.returnValue = jwtDecode(store.get(val));
 });
+function handleUserRole() {
+  try {
+    const decodedToken = jwtDecode(store.get("jwtToken"));
+    const userRole = decodedToken.authorities;
+    switch (userRole) {
+      case "ADMINISTRADOR":
+      case "DEVELOPER":
+        loginWindow.loadFile("src/views/adminMenuPrincipal.html");
+        break;
+      case "GERENTE":
+        loginWindow.loadFile("src/views/reportes.html");
+        break;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
 
-ipcMain.handle("check-role", async () => {
-  const decodedToken = jwtDecode(store.get("jwtToken"));
-  const userRole = decodedToken.authorities;
-  switch (userRole) {
-    case "ADMINISTRADOR":
-      await loginWindow.loadFile("src/views/adminMenuPrincipal.html");
-      break;
-    case "DEVELOPER":
-      await loginWindow.loadFile("src/views/adminMenuPrincipal.html");
-      break;
-    case "GERENTE":
-      await loginWindow.loadFile("src/views/reportes.html");
-      break;
+const logicaInicio = async () => {
+  const token = store.get("jwtToken");
+  if (token) {
+    const tokenDto = { jwtToken: token };
+    try {
+      await axios.post("http://212.1.213.32:8080/auth/tokenStatus", tokenDto);
+      handleUserRole();
+    } catch (error) {
+      loginWindow.loadFile("src/views/login.html");
+    }
+  } else loginWindow.loadFile("src/views/login.html");
+};
+
+ipcMain.handle("check-role", (event) => {
+  try {
+    handleUserRole();
+  } catch (error) {
+    console.log(error);
   }
 });
 

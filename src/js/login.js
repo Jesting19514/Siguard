@@ -1,17 +1,33 @@
-const formLogin = document.getElementById("formLogin");
-const btntoken = document.getElementById("token");
-formLogin.addEventListener("submit", async (event) => {
-  event.preventDefault(); // Evita que el formulario recargue la página
-  const username = document.getElementById("usernameForm");
-  const password = document.getElementById("passwordForm");
+const btnLogin = document.getElementById("btnLogin");
+const muestraToken = document.getElementById("token");
+const btntokenDelete = document.getElementById("token2");
 
-  const error = await window.authentication.login(
-    username.value,
-    password.value
-  ); // Hacer la petición
-  alert(`Credenciales Incorrectas ${JSON.stringify(error)}`);
+btnLogin.addEventListener("click", async (event) => {
+  event.preventDefault(); // Evita que el formulario recargue la página
+  const usernameField = document.getElementById("usernameForm");
+  const passwordField = document.getElementById("passwordForm");
+
+  // Hacer la petición
+  const res = await window.authentication.login(
+    usernameField.value,
+    passwordField.value
+  );
+  if (res) {
+    alert(`${res}`);
+    usernameField.value = "";
+    passwordField.value = "";
+  }
 });
-btntoken.addEventListener("click", () => {
-  const tokenguardado = window.authentication.obtenToken();
-  alert(tokenguardado);
+//Mostrar Token
+muestraToken.addEventListener("click", async () => {
+  alert(await window.authentication.obtenToken());
+});
+//Eliminar token
+btntokenDelete.addEventListener("click", () => {
+  try {
+    window.authentication.borraSesion();
+    alert("Token Eliminado ");
+  } catch (error) {
+    alert("Token No se elimino " + error.message);
+  }
 });

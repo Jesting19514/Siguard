@@ -1,4 +1,4 @@
-const { contextBridge, ipcRenderer } = require("electron");
+const { contextBridge, ipcRenderer, ipcMain } = require("electron");
 const axios = require("axios");
 
 const url = "http://212.1.213.32:8080";
@@ -53,17 +53,29 @@ contextBridge.exposeInMainWorld("guarderia", {
 contextBridge.exposeInMainWorld("authentication", {
   login: async (username, password) => {
     try {
+      if (!navigator.onLine) {
+        throw new Error("Sin conexión a Internet");
+      }
+      //Realiza peticion para obtener el Rol
       const user = { username: username, password: password };
       const response = await axios.post(`${url}/auth/login`, user);
-      // Guarda el token como jwtToken
-      store.set("jwtToken", response.data.jwtToken);
+
+      ipcRenderer.send("guardaToken", response.data.jwtToken);
+
       await ipcRenderer.invoke("check-role");
     } catch (error) {
-      return error;
+      if (error.message === "Sin conexión a Internet") {
+        return "Sin conexión a Internet, conectese y vuelva a intentar";
+      } else {
+        return "Credenciales Incorrectas";
+      }
     }
   },
-  obtenToken: () => {
-    return store.get("jwtToken");
+  obtenToken: async () => {
+    return await ipcRenderer.invoke("obtenToken");
+  },
+  borraSesion: () => {
+    ipcRenderer.send("logout");
   },
 });
 /*
@@ -87,15 +99,3 @@ contextBridge.exposeInMainWorld("contrato", {
     } catch (error) {}
   },
 });*/
-
-const store = {
-  get(key) {
-    return ipcRenderer.sendSync("electron-store-get", key);
-  },
-  set(property, val) {
-    ipcRenderer.send("electron-store-set", property, val);
-  },
-  getTokenDecoded(key) {
-    return ipcRenderer.sendSync("jwt-decoded-get", key);
-  },
-};
