@@ -144,9 +144,19 @@ contextBridge.exposeInMainWorld("guarderia", {
   },
   //GERENTE
   //Encuentra la Guarderia del GERENTE
+  guardByTokenGerente: async () => {
+    try {
+      const response = await apiClient.get(
+        `/guarderia/guarderiaByTokenGerente`
+      );
+      return response.data;
+    } catch (error) {
+      return error.message;
+    }
+  },
 });
 
-contextBridge.exposeInMainWorld("Usuario", {
+contextBridge.exposeInMainWorld("usuario", {
   //ADMIN
   //Agrega un Gerente
   addGerente: async (nombre, email, password) => {
@@ -160,7 +170,7 @@ contextBridge.exposeInMainWorld("Usuario", {
   },
   //ADMIN
   //Elimina un Gerente
-  deleteGerente: async (idGertente) => {
+  deleteGerente: async (idGerente) => {
     try {
       const reponse = await apiClient.delete(
         `/usuario/deleteGerente/${idGerente}`
@@ -175,6 +185,22 @@ contextBridge.exposeInMainWorld("Usuario", {
   listGerentes: () => {
     try {
       const response = apiClient.get(`/usuario/listGerentes`);
+      return response.data;
+    } catch (error) {
+      return { error: error.message };
+    }
+  },
+});
+contextBridge.exposeInMainWorld("documento", {
+  //GERENTE
+  updateDateDoc: async (idDocumento, fechInicio, fechFin) => {
+    try {
+      let docDto = {
+        idDocumento: idDocumento,
+        fechInicio: fechInicio,
+        fechFin: fechFin,
+      };
+      const response = await apiClient.patch(`/documento/modifica"`, docDto);
       return response.data;
     } catch (error) {
       return { error: error.message };
