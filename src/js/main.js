@@ -165,8 +165,8 @@ async function createWindow() {
       enableRemoteModule: false,
     },
   });
-  await logicaInicio();
-  //loginWindow.loadFile("src/views/login.html");
+  //await logicaInicio();
+  loginWindow.loadFile("src/views/login.html");
   //mainWindow.loadFile("src/views/adminMenuPrincipal.html");
 
   loginWindow.on("closed", function () {
@@ -192,6 +192,7 @@ ipcMain.on("send-notification", (event, { title, body }) => {
 //IPC Cerrar Sesion
 ipcMain.on("logout", () => {
   store.clear();
+  loginWindow.loadFile("src/views/login.html");
 });
 // IPC electron-store
 ipcMain.handle("obtenToken", async (event) => {
