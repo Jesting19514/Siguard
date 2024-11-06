@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,38 +7,38 @@
     <link rel="stylesheet" href="../css/login.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 </head>
-
 <body>  
-
     <img src="../../assets/images/imss_logo.png" id="imgIMSS">
-
     <div id="Login">
-
-
         <div class="container">
             <img src="../../assets/images/siguard.svg" class="siguardLogo">
-            <form action="/my-handling-form-page" method="post" class="formulario">
+            <form class="formulario" onsubmit="login(event)">
                 <ul>
                     <li>
-                        <label for="correo">Usuario</label>
-                        <input type="text" id="name" name="user_name" placeholder="Correo electrónico" />
+                        <label for="name">Usuario</label>
+                        <input type="text" id="name" name="user_name" placeholder="ID Usuario" />
                     </li>
                     <li>
                         <label for="password">Contraseña</label>
-                        <input type="password" id="mail" name="user_mail" placeholder="Contraseña" />
+                        <input type="password" id="password" name="user_password" placeholder="Contraseña" />
                     </li>
-
                 </ul>
+                <button class="unbtn" onclick="login(event)">Entrar</button>
             </form>
-
-            <button class="unbtn" onclick="location.href='adminMenuPrincipal.html'">Entrar</button>
+        </div>
+    </div>
+    
+    <!-- Modal -->
+    <div id="errorModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Error al iniciar sesion</h2>
+            <p id="errorMessage">Credenciales incorrectas.</p>
         </div>
     </div>
 
+    <script src="../js/login.js"></script>
 </body>
-
 </html>

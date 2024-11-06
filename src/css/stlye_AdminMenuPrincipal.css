@@ -35,7 +35,7 @@ body {
 }
 
 #daycare-list {
-    max-height: 90%;
+    max-height: 85%;
     overflow-y: auto;
     border: none; 
     margin: 0px 0;
@@ -246,11 +246,11 @@ body {
     cursor: pointer;
     border: solid 1px darkgray;
     background: none;
-    width: 100%; /* Cambiar a 100% para que se ajuste al ancho del modal */
-    max-width: 400px; /* Limitar el ancho si es necesario */
-    margin-top: 20px; /* Agregar un margen superior para separación */
-    padding: 10px; /* Añadir un poco de relleno para mejorar el aspecto */
-    box-shadow: none; /* Eliminar sombra para que se integre bien */
+    width: 100%; 
+    max-width: 400px;
+    margin-top: 20px; 
+    padding: 10px; 
+    box-shadow: none; 
 }
 
 .modal-confirm:hover,
@@ -284,4 +284,13 @@ body {
     font-size: 0.9em;
     margin-top: 10px;
     text-align: center;
+}
+
+.search-bar {
+    width: 98%;
+    padding: 4px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }

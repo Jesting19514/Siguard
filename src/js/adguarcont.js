@@ -18,7 +18,50 @@ function formatDate(dateString) {
     const year = String(date.getUTCFullYear()).slice(-2); // Solo dos dígitos del año
     return `${day}/${month}/${year}`;
 }
+async function loadDocuments() {
+    const documentList = document.getElementById('daycare-list'); // Cambia el nombre si es necesario
+    documentList.innerHTML = ''; 
 
+    try {
+        const response = await fetch('http://localhost:3000/api/documentos'); 
+        const documentos = await response.json();
+
+        documentos.forEach(documento => {
+            const documentItemContainer = document.createElement('div');
+            documentItemContainer.classList.add('daycare-item-container');
+            documentItemContainer.setAttribute('data-id', documento._id);
+
+            const documentButton = document.createElement('button');
+            documentButton.classList.add('daycare-item'); // Cambia la clase si es necesario
+            documentButton.textContent = documento.nombreDoc; // Usa el campo de nombre adecuado
+            documentButton.onclick = () => location.href = 'adminguarCon.html';
+
+            const editButton = document.createElement('button');
+            editButton.classList.add('edit-button');
+            editButton.onclick = () => editName(editButton);
+            const editIcon = document.createElement('img');
+            editIcon.src = '../../assets/images/editIcon_1.png';
+            editIcon.classList.add('icon');
+            editButton.appendChild(editIcon);
+
+            const deleteButton = document.createElement('button');
+            deleteButton.classList.add('delete-button');
+            deleteButton.onclick = () => deleteDaycare(deleteButton);
+            const deleteIcon = document.createElement('img');
+            deleteIcon.src = '../../assets/images/deleteIcon2.png';
+            deleteIcon.classList.add('icon');
+            deleteButton.appendChild(deleteIcon);
+
+            documentItemContainer.appendChild(documentButton);
+            documentItemContainer.appendChild(editButton);
+            documentItemContainer.appendChild(deleteButton);
+
+            documentList.appendChild(documentItemContainer);
+        });
+    } catch (error) {
+        console.error("Error al cargar los documentos:", error);
+    }
+}
 function validateDates(startDate, endDate) {
     const today = new Date().setHours(0, 0, 0, 0); // Obtener la fecha actual, ignorando la hora
     const start = new Date(startDate).setHours(0, 0, 0, 0);
@@ -37,6 +80,64 @@ function validateDates(startDate, endDate) {
         return false;
     }
     return true;
+}
+document.addEventListener('DOMContentLoaded', () => {
+    fetchDocuments(); // Llamada para obtener los documentos al cargar la página
+});
+
+async function fetchDocuments() {
+    try {
+        const response = await fetch('http://localhost:3000/api/documents');
+        const documents = await response.json();
+        const container = document.getElementById('daycare-list');
+        container.innerHTML = '';
+
+        documents.forEach(doc => {
+            const itemContainer = document.createElement('div');
+            itemContainer.classList.add('daycare-item-container');
+
+            const button = document.createElement('button');
+            button.classList.add('daycare-item');
+            button.innerHTML = `
+                ${doc.nombreDoc} (Guardería: ${doc.num_guarderia})<br>
+                <span class="date-text">Fecha de inicio: ${formatDate(doc.fecha_inicio.$date)}<br>
+                Fecha de término: ${formatDate(doc.fecha_termino.$date)}</span>
+            `;
+
+            const today = new Date().setHours(0, 0, 0);
+            const endDate = new Date(doc.fecha_termino.$date).setHours(0, 0, 0);
+            const daysRemaining = Math.max(0, Math.round((endDate - today) / (1000 * 60 * 60 * 24)));
+            updateButtonStyles(button, daysRemaining);
+            button.addEventListener('click', () => toggleDates(button));
+
+            const editButton = createIconButton('../../assets/images/editafecha.png', () => openDatePicker(editButton));
+            itemContainer.appendChild(button);
+            itemContainer.appendChild(editButton);
+            container.appendChild(itemContainer);
+        });
+
+        sortDocuments();
+    } catch (error) {
+        console.error('Error al obtener los documentos:', error);
+    }
+}
+
+function createIconButton(iconSrc, onClick) {
+    const button = document.createElement('button');
+    button.classList.add('edit-button');
+    const icon = document.createElement('img');
+    icon.src = iconSrc;
+    icon.classList.add('icon');
+    button.appendChild(icon);
+    button.addEventListener('click', onClick);
+    return button;
+}
+
+
+// Función para formatear las fechas
+function formatDate(dateString) {
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    return new Date(dateString).toLocaleDateString('es-ES', options);
 }
 
 function saveDates() {

@@ -1,59 +1,46 @@
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Menu Usuario</title>
-        <link rel="stylesheet" href="../css/styleUsuarioMenu.css">
-    </head>
-    <body>
-        <div class="sidebar">
-            <h2>USUARIO</h2> 
-            <img src="../../assets/images/imss_logo.png" class="logoimss">
-        </div>
-        <div class="content">
-            <h1>Guarderia n</h1>
-            
-            <div class="daycare-item-container" style="position: relative;">
-                <button id="toggle-doc" class="daycare-item">Documento 1</button>
-                <button class="edit-button" onclick="editName(this)" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%);">
-                    <img src="../../assets/images/edit_icon.png" class="icon">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Usuario Contratos</title> 
+    <link rel="stylesheet" href="../css/styleUsuarioMenu.css"> 
+</head>
+<body>
+    <div class="sidebar">
+        <h2>USUARIO</h2>
+        <img src="../../assets/images/imss_logo.png" class="logoimss" alt="Logo IMSS">
+    </div>
+    <div class="content">
+        <h1>Guardería n</h1>
+        <p class="contract-dates">Contrato: De 03/09/2008 a 15/6/2029</p>
+        <div id="daycare-list">
+            <div class="daycare-item-container">
+                <button class="daycare-item" onclick="toggleDates(this)">Documento 1</button>
+                <button class="edit-button" onclick="openDatePicker(this)">
+                    <img src="../../assets/images/editafecha.png" class="icon" alt="Editar fechas">
                 </button>
-                    <div class="menu-input hidden">
-                        <label for="start-date">Fecha de inicio:</label>
-                        <input type="date" id="start-date" />
-                        <label for="end-date">Fecha de término:</label>
-                        <input type="date" id="end-date" />
-                    </div>
-                </div>
-                <div class="daycare-item-container" style="position: relative;">
-                    <button id="toggle-doc" class="daycare-item2">Documento 2</button>
-                    <button class="edit-button" onclick="editName(this)" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%);">
-                        <img src="../../assets/images/edit_icon.png" class="icon">
-                    </button>
-                        <div class="menu-input hidden">
-                            <label for="start-date">Fecha de inicio:</label>
-                            <input type="date" id="start-date" />
-                            <label for="end-date">Fecha de término:</label>
-                            <input type="date" id="end-date" />
-                        </div>
-                    </div>
-                    <div class="daycare-item-container" style="position: relative;">
-                        <button id="toggle-doc" class="daycare-item3">Documento 3</button>
-                        <button class="edit-button" onclick="editName(this)" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%);">
-                            <img src="../../assets/images/edit_icon.png" class="icon">
-                        </button>
-                            <div class="menu-input hidden">
-                                <label for="start-date">Fecha de inicio:</label>
-                                <input type="date" id="start-date" />
-                                <label for="end-date">Fecha de término:</label>
-                                <input type="date" id="end-date" />
-                            </div>
-                        </div>
+                <input type="checkbox" class="edit-checkbox" onclick="toggleCheckbox(this)">
             </div>
-            
-            
         </div>
-        <script src="../js/menuadmin.js"></script>
-    </body>
-    </html>
+        <button class="back-button" onclick="location.href='login.html'">Cerrar Sesion</button>
+    </div>
+
+    <!-- Modal para la selección de fechas -->
+    <div id="date-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>Selecciona las fechas</h2>
+            <label for="start-date">Fecha inicial:</label>
+            <input type="date" id="start-date">
+            <br><br>
+            <label for="end-date">Fecha final:</label>
+            <input type="date" id="end-date">
+            <br><br>
+            <button onclick="saveDates()">Aceptar</button>
+            <button onclick="closeModal()">Cancelar</button>
+        </div>
+    </div>
+
+    <script src="../js/usuarioMenu.js"></script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8); 
+    padding: 10px 20px;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar ul li {
+    display: inline;
+}
+
+.navbar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+    padding: 8px 16px;
+    transition: background 0.3s ease;
+}
+
+.navbar ul li a:hover {
+    background-color: #555; 
+    border-radius: 4px;
+}
+
+
+#hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    padding-top: 60px; 
+}
+
+
+.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+#background-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+.content-overlay {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: white;
+    font-size: 300%;
+    
+}
+
+.content-overlay h1 {
+    color: white;
+    font-size: 100%;
+    text-shadow: black 5px 5px 5px;
+}
+.content-overlay h2 {
+    color: white;
+    font-size: 100%;
+    text-shadow: black 5px 5px 5px;
+}
+
+
+#about, #photos, #contact {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+
+.photo-gallery {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.photo-gallery img {
+    width: 300px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+
+#contact p {
+    font-size: 1.2em;
+}
+
+
+footer {
+    background: #333;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+footer p {
+    font-size: 1em;
+}
+
+
+body, html {
+    scroll-behavior: smooth;
+}
