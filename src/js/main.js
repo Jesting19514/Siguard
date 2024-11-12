@@ -160,7 +160,7 @@ serverApp.get("/api/documents", async (req, res) => {
 serverApp.listen(port, () => {
   console.log(`Servidor escuchando en http://localhost:${port}`);
 });
-//sdfasdfasdfasdfasdfasdf
+
 async function createWindow() {
   loginWindow = new BrowserWindow({
     autoHideMenuBar: false,
@@ -173,8 +173,8 @@ async function createWindow() {
       enableRemoteModule: false,
     },
   });
-  //await logicaInicio();
-  loginWindow.loadFile("src/views/login.html");
+  await logicaInicio();
+  //loginWindow.loadFile("src/views/login.html");
   //mainWindow.loadFile("src/views/adminMenuPrincipal.html");
 
   loginWindow.on("closed", function () {

@@ -24,6 +24,7 @@
     "cacheable-request": "^7.0.4",
     "clone-response": "^1.0.3",
     "cors": "^2.8.5",
+    "date-fns": "^4.1.0",
     "debug": "^4.3.7",
     "decompress-response": "^6.0.0",
     "defer-to-connect": "^2.0.1",

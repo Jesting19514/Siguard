@@ -1,5 +1,6 @@
 const { contextBridge, ipcRenderer, ipcMain } = require("electron");
 const axios = require("axios");
+const { format, parse, parseISO } = require("date-fns");
 
 //const url = "http://212.1.213.32:8080";
 //const url = "http://localhost:8080";
@@ -195,6 +196,20 @@ contextBridge.exposeInMainWorld("documento", {
     } catch (error) {
       return { error: error.message };
     }
+  },
+});
+
+contextBridge.exposeInMainWorld("fechas", {
+  //GERENTE
+  aNormal: (fechaBD) => {
+    // Convertir la cadena en formato año/mes/día a un objeto Date
+    const fecha = parse(fechaBD, "yyyy-MM-dd", new Date());
+    // Formatear a día/mes/año
+    return format(fecha, "dd-MM-yyyy");
+  },
+  aDB: (fechaNormal) => {
+    const fecha = parse(fechaNormal, "dd-MM-yyyy", new Date());
+    return format(fecha, "yyyy-MM-dd");
   },
 });
 
