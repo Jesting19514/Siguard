@@ -56,7 +56,7 @@ contextBridge.exposeInMainWorld("authentication", {
   obtenToken: async () => {
     return await ipcRenderer.invoke("obtenToken");
   },
-  borraSesion: () => {
+  logout: () => {
     ipcRenderer.send("logout");
   },
 });
@@ -212,28 +212,6 @@ contextBridge.exposeInMainWorld("fechas", {
     return format(fecha, "yyyy-MM-dd");
   },
 });
-
-/*
-contextBridge.exposeInMainWorld("documento", {
-  modifica: async () => {
-    try {
-      const reponst = await axios.post;
-    } catch (error) {}
-  },
-  getAll: async () => {
-    try {
-      const reponst = await axios.post;
-    } catch (error) {}
-  },
-});
-/*
-contextBridge.exposeInMainWorld("contrato", {
-  getById: async () => {
-    try {
-      const reponst = await axios.post;
-    } catch (error) {}
-  },
-});*/
 
 contextBridge.exposeInMainWorld("ipcRenderer", {
   send: (channel, data) => {

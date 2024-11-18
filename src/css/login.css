@@ -75,8 +75,21 @@ body {
   background-color: #0f605c;
   color: white;
 }
+.unbtnAbout {
+  border: none;
+  border-radius: 25px;
+  height: 5%;
+  width: 12%;
+  background-color: #0f605c;
+  color: white;
+}
 .unbtn:hover {
   background-color: #003835;
-  transform: translateY(-5px); 
+  transform: translateY(-5px);
+  cursor: pointer;
+}
+.unbtnAbout:hover {
+  background-color: #003835;
+
   cursor: pointer;
 }

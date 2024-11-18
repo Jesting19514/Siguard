@@ -82,11 +82,31 @@ body {
   border-radius: 7px;
   cursor: pointer;
 }
+.logout-button {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  position: fixed;
+  bottom: 20px;
+  left: 46%;
+  padding: 10px 100px;
+  font-size: 20px;
+  background-color: #ffeee021;
+  color: #ce3429;
+  border: 1px solid #ce3429;
+  border-radius: 7px;
+  cursor: pointer;
+}
 
 .report-button:hover {
   background-color: #ffeee021;
   color: #1b75b1b5;
   border: 1px solid #1b75b1b5;
+  transform: translateY(-5px);
+}
+.logout-button:hover {
+  background-color: #ffeee021;
+  color: #a13129;
+  border: 1px solid #a13129;
   transform: translateY(-5px);
 }
 .delete-button,
@@ -178,9 +198,8 @@ body {
   font-weight: 600;
   font-size: 300%;
   color: gray;
-  text-shadow: 1px 1px 1px darkgray;
+
   margin-top: 1;
-  text-shadow: 1px 1px 3px rgb(0, 0, 0);
 }
 .button-container {
   display: flex;
