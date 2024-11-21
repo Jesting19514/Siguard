@@ -258,18 +258,10 @@ async function loadGerentes() {
     option.textContent = "Verifique su conexion a internet";
     selectGerentes.appendChild(option); // Añadir la opción al <select>
   }
-
-  // // Agregar opciones al <select>
-  // listaGerentes.forEach((listaGerentes) => {
 }
 
 async function addDaycare() {
-  await loadGerentes();
-  //  private String idGuarderia;
-  //  private String nombreGuarderia;
-  //  private Long idGerente;
-  //  private LocalDate fechaInicioContrato;
-  //  private LocalDate fechaFinContrato;
+  await loadGerentes(); //Carga los option para el select
   showModal("add");
 
   document.getElementById("modal-confirm").onclick = async () => {
@@ -307,6 +299,8 @@ async function addDaycare() {
           alert("Guarderia Agregada Exitosamente");
           await loadDaycares();
         } else {
+          alert("Algo salio mal, vuelva a intentarlo :( \n");
+          closeModal();
           console.error("Error:", result.message);
         }
       } catch (error) {
