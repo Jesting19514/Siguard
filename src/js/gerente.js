@@ -1,5 +1,6 @@
 let selectedButton = null; // Variable para almacenar el botón seleccionado
 let existingDates = {}; // Objeto para almacenar fechas existentes para todos los documentos
+let guarderiaData = {};
 
 // Abrir el selector de fechas cuando se hace clic en el botón de edición
 function openDatePicker(button) {

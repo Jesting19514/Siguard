@@ -179,11 +179,16 @@ async function saveDates() {
       fechaFin
     );
     //TODO
-    if (true) {
-    }
 
     closeModal(); // Ocultar el modal después de guardar las fechas
     cargaVentana(guarderiaData); //Actualiza la ventana
+    if (true) {
+      // Verificar fechas y actualizar los colores
+      checkDatesAndUpdate();
+
+      // Llamar a la función de ordenar documentos
+      sortDocuments(); // Organizar los documentos según la nueva prioridad
+    }
     alert("Fecha actualizada Correctamente");
   } else {
     alert("Por favor, selecciona ambas fechas.");
@@ -211,22 +216,6 @@ function convertToDate(dateString) {
       "0"
     )}`
   );
-}
-
-function updateButtonStyles(button, daysRemaining) {
-  if (daysRemaining > 40) {
-    button.style.boxShadow = "0 5px 5px rgba(0, 255, 0, 0.692)"; // Verde
-    button.classList.remove("priority-high", "priority-medium");
-    button.classList.add("priority-low");
-  } else if (daysRemaining <= 40 && daysRemaining > 20) {
-    button.style.boxShadow = "0 5px 5px rgba(255, 145, 0, 0.692)"; // Naranja
-    button.classList.remove("priority-high", "priority-low");
-    button.classList.add("priority-medium");
-  } else {
-    button.style.boxShadow = "0 5px 5px rgba(241, 2, 2, 0.692)"; // Rojo
-    button.classList.remove("priority-medium", "priority-low");
-    button.classList.add("priority-high");
-  }
 }
 
 function sortDocuments() {
@@ -272,6 +261,7 @@ function checkDatesAndUpdate() {
 
       const startDate = convertToDate(startDateText);
       const endDate = convertToDate(endDateText);
+
       const daysRemaining = Math.max(
         0,
         Math.round((endDate - today) / (1000 * 60 * 60 * 24))
@@ -282,4 +272,19 @@ function checkDatesAndUpdate() {
   });
 
   sortDocuments(); // Llamar a sortDocuments para reorganizar los documentos
+}
+function updateButtonStyles(button, daysRemaining) {
+  if (daysRemaining > 40) {
+    button.style.boxShadow = "0 5px 5px rgba(0, 255, 0, 0.692)"; // Verde
+    button.classList.remove("priority-high", "priority-medium");
+    button.classList.add("priority-low");
+  } else if (daysRemaining <= 40 && daysRemaining > 20) {
+    button.style.boxShadow = "0 5px 5px rgba(255, 145, 0, 0.692)"; // Naranja
+    button.classList.remove("priority-high", "priority-low");
+    button.classList.add("priority-medium");
+  } else {
+    button.style.boxShadow = "0 5px 5px rgba(241, 2, 2, 0.692)"; // Rojo
+    button.classList.remove("priority-medium", "priority-low");
+    button.classList.add("priority-high");
+  }
 }
