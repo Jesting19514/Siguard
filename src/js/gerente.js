@@ -65,19 +65,23 @@ async function loadDocuments() {
 }
 
 window.navegation.onNavigateParams(async (params) => {
-  const { idGuarderia, nombreGuarderia, documentos } = params;
-  document.getElementById("tituloGuarderia").textContent = nombreGuarderia; // Setear el titulo
+  await cargaVentana(params);
+});
+async function cargaVentana(params) {
+  const { fechaInicio, fechaTermino } = await window.guarderia.getContrato(
+    params.idGuarderia
+  );
 
-  const res = await window.guarderia.getContrato(idGuarderia);
-  const { fechaInicio, fechaTermino } = res;
+  document.getElementById("tituloGuarderia").textContent =
+    params.nombreGuarderia; // Setear el titulo
 
   document.getElementById(
     "fechasContrato"
   ).textContent = `Contrato: De ${window.fechas.aNormal(
     fechaInicio
   )} a ${window.fechas.aNormal(fechaTermino)}`; //Setear las fechas
-  fetchDocuments(documentos);
-});
+  fetchDocuments(params.documentos);
+}
 
 function fetchDocuments(documents) {
   console.log(documents);
