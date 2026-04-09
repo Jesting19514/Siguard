@@ -93,6 +93,10 @@ function getDateInputValue(dateValue) {
   return date.toISOString().split('T')[0];
 }
 
+function saveSelectedDaycare(daycare) {
+  localStorage.setItem('selectedDaycare', JSON.stringify(daycare));
+}
+
 async function loadDaycares() {
   const daycareList = document.getElementById('daycare-list');
   daycareList.innerHTML = '';
@@ -114,7 +118,8 @@ async function loadDaycares() {
       daycareButton.className = 'daycare-item flex-1 rounded-lg bg-slate-50 px-4 py-3 text-left font-semibold text-slate-700 hover:bg-slate-100';
       daycareButton.textContent = daycare.razon_social;
       daycareButton.onclick = () => {
-        location.href = 'adminguarCon.html';
+        saveSelectedDaycare(daycare);
+        location.href = `adminguarCon.html?daycareId=${encodeURIComponent(daycare._id)}`;
       };
 
       const editButton = document.createElement('button');
@@ -211,7 +216,6 @@ function addDaycare() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           razon_social: newRazonSocial,
-          id_usuario_gerente: 1,
           fecha_inicio: startDate,
           fecha_termino: endDate,
           num_guarderia: newNumGuarderia,
@@ -222,6 +226,8 @@ function addDaycare() {
       if (result.success) {
         closeModal();
         loadDaycares();
+      } else {
+        alert(result.message || 'No se pudo crear la guardería.');
       }
     } catch (error) {
       console.error('Error al agregar la guardería:', error);

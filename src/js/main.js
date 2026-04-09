@@ -55,7 +55,10 @@ ipcMain.on('login', async (event, { name, password }) => {
     if (payload.roleId === 1) {
       mainWindow.loadFile('src/views/adminMenuPrincipal.html');
     } else if (payload.roleId === 2) {
-      mainWindow.loadFile('src/views/usuarioMenuPrincipalVentana.html');
+      const daycareId = payload.daycare?._id ? String(payload.daycare._id) : '';
+      mainWindow.loadFile('src/views/usuarioMenuPrincipalVentana.html', {
+        query: { daycareId },
+      });
     } else {
       event.sender.send('login-failed', 'Rol no reconocido');
     }
