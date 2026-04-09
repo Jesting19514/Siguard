@@ -3,11 +3,28 @@
   let selectedDaycare = null;
   const disabledButtons = new Set();
   const modifiedButtons = new Set();
+  const notifiedDocuments = new Set();
+
+  function parseDateAsLocal(value) {
+    if (!value) return null;
+    if (value instanceof Date) return Number.isNaN(value.getTime()) ? null : value;
+
+    if (typeof value === 'string') {
+      const dateOnlyMatch = value.match(/^(\d{4})-(\d{2})-(\d{2})/);
+      if (dateOnlyMatch) {
+        const [, year, month, day] = dateOnlyMatch;
+        return new Date(Number(year), Number(month) - 1, Number(day));
+      }
+    }
+
+    const parsed = new Date(value);
+    return Number.isNaN(parsed.getTime()) ? null : parsed;
+  }
 
   function formatDate(dateString) {
     if (!dateString) return '--/--/----';
-    const date = new Date(dateString);
-    if (Number.isNaN(date.getTime())) return '--/--/----';
+    const date = parseDateAsLocal(dateString);
+    if (!date) return '--/--/----';
     return date.toLocaleDateString('es-ES');
   }
 
@@ -53,7 +70,34 @@
 
   function convertToDate(dateString) {
     const [day, month, year] = dateString.split('/').map(Number);
-    return new Date(`${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`);
+    return new Date(year, month - 1, day);
+  }
+
+  function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+
+  function closeModalById(modalId) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+
+  function maybeNotifyDocumentExpiration(documentName, endDate, daysRemaining) {
+    if (!window.ipcRenderer || typeof window.ipcRenderer.send !== 'function') return;
+
+    const notificationKey = `${documentName}-${endDate.toISOString().slice(0, 10)}`;
+    if (notifiedDocuments.has(notificationKey)) return;
+
+    window.ipcRenderer.send('send-notification', {
+      title: 'Documento próximo a vencer',
+      body: `${documentName} vence el ${endDate.toLocaleDateString('es-ES')} (faltan ${daysRemaining} días).`,
+    });
+    notifiedDocuments.add(notificationKey);
   }
 
   function checkDatesAndUpdate() {
@@ -74,6 +118,8 @@
 
         if (daysRemaining <= 14) {
           button.style.boxShadow = '0 5px 5px rgba(241, 2, 2, 0.692)';
+          const documentName = button.childNodes[0]?.textContent?.trim() || 'Documento';
+          maybeNotifyDocumentExpiration(documentName, endDate, daysRemaining);
         } else if (daysRemaining > totalDays / 2) {
           button.style.boxShadow = '0 5px 5px rgba(0, 255, 0, 0.692)';
         } else {
@@ -119,14 +165,14 @@
 
     if (checkbox.checked && associatedButton.style.boxShadow.includes('rgba(128, 128, 128') && !modifiedButtons.has(associatedButton)) {
       selectedButton = associatedButton;
-      document.getElementById('date-modal').style.display = 'flex';
+      openModal('date-modal');
     } else {
       alert('Solo puedes modificar la fecha si el estado está en gris y el checkbox está marcado.');
     }
   };
 
   window.closeModal = function() {
-    document.getElementById('date-modal').style.display = 'none';
+    closeModalById('date-modal');
   };
 
   window.openCreateDocumentModal = function() {
@@ -137,13 +183,15 @@
     document.getElementById('document-name').value = '';
     document.getElementById('document-start-date').value = '';
     document.getElementById('document-end-date').value = '';
-    document.getElementById('create-document-modal').classList.remove('hidden');
-    document.getElementById('create-document-modal').classList.add('flex');
+    closeModalById('date-modal');
+    openModal('create-document-modal');
+    requestAnimationFrame(() => {
+      document.getElementById('document-name').focus();
+    });
   };
 
   window.closeCreateDocumentModal = function() {
-    document.getElementById('create-document-modal').classList.add('hidden');
-    document.getElementById('create-document-modal').classList.remove('flex');
+    closeModalById('create-document-modal');
   };
 
   window.createDocument = async function() {
