@@ -3,41 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú Usuario Contratos</title> 
-    <link rel="stylesheet" href="../css/styleUsuarioMenu.css"> 
+    <title>Menú Usuario Contratos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="sidebar">
-        <h2>USUARIO</h2>
-        <img src="../../assets/images/icon.ico" class="logoApp" alt="Logo aplicación">
-    </div>
-    <div class="content">
-        <h1>Guardería n</h1>
-        <p class="contract-dates">Contrato: De 03/09/2008 a 15/6/2029</p>
-        <div id="daycare-list">
-            <div class="daycare-item-container">
-                <button class="daycare-item" onclick="toggleDates(this)">Documento 1</button>
-                <button class="edit-button" onclick="openDatePicker(this)">
-                    <img src="../../assets/images/editafecha.png" class="icon" alt="Editar fechas">
-                </button>
-                <input type="checkbox" class="edit-checkbox" onclick="toggleCheckbox(this)">
+<body class="min-h-screen bg-slate-50 text-slate-800">
+    <div class="flex min-h-screen flex-col lg:flex-row">
+        <aside class="sidebar flex w-full items-center justify-between bg-gradient-to-br from-teal-900 to-teal-500 p-5 text-white lg:min-h-screen lg:w-72 lg:flex-col lg:justify-start lg:gap-6">
+            <h2 class="text-2xl font-bold lg:text-4xl">USUARIO</h2>
+            <img src="../../assets/images/icon.ico" class="logoApp h-16 w-16 rounded-xl bg-white/20 p-2 lg:mt-auto lg:h-24 lg:w-24" alt="Logo aplicación">
+        </aside>
+
+        <main class="content flex-1 p-4 sm:p-6 lg:p-8">
+            <div class="mx-auto flex h-full w-full max-w-6xl flex-col gap-4">
+                <h1 class="text-2xl font-bold text-slate-700 sm:text-3xl">Guardería n</h1>
+                <p class="contract-dates text-sm text-slate-500">Contrato: De 03/09/2008 a 15/6/2029</p>
+
+                <div id="daycare-list" class="space-y-3 overflow-y-auto rounded-xl border border-slate-200 bg-white p-3">
+                    <div class="daycare-item-container flex flex-col gap-2 rounded-xl border border-slate-200 p-3 sm:flex-row sm:items-center">
+                        <button class="daycare-item flex-1 rounded-lg bg-slate-50 px-4 py-3 text-left font-semibold text-slate-700">Documento 1</button>
+                        <button class="edit-button rounded-lg border border-slate-200 p-2 hover:bg-slate-100" onclick="openDatePicker(this)">
+                            <img src="../../assets/images/editafecha.png" class="icon h-5 w-5" alt="Editar fechas">
+                        </button>
+                        <input type="checkbox" class="edit-checkbox h-5 w-5 rounded border-slate-300" onclick="toggleCheckbox(this)">
+                    </div>
+                </div>
+
+                <button class="back-button mt-auto w-full rounded-xl border border-slate-400 px-4 py-3 font-semibold text-slate-600 hover:bg-slate-100 sm:w-auto" onclick="location.href='login.html'">Cerrar Sesión</button>
             </div>
-        </div>
-        <button class="back-button" onclick="location.href='login.html'">Cerrar Sesion</button>
+        </main>
     </div>
 
-    <!-- Modal para la selección de fechas -->
-    <div id="date-modal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <h2>Selecciona las fechas</h2>
-            <label for="start-date">Fecha inicial:</label>
-            <input type="date" id="start-date">
-            <br><br>
-            <label for="end-date">Fecha final:</label>
-            <input type="date" id="end-date">
-            <br><br>
-            <button onclick="saveDates()">Aceptar</button>
-            <button onclick="closeModal()">Cancelar</button>
+    <div id="date-modal" class="modal fixed inset-0 hidden items-center justify-center bg-black/50 p-4">
+        <div class="modal-content w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
+            <h2 class="mb-4 text-lg font-semibold">Selecciona las fechas</h2>
+            <label for="start-date" class="mb-1 block text-sm text-slate-600">Fecha inicial:</label>
+            <input type="date" id="start-date" class="w-full rounded-lg border border-slate-200 px-3 py-2">
+            <label for="end-date" class="mb-1 mt-3 block text-sm text-slate-600">Fecha final:</label>
+            <input type="date" id="end-date" class="w-full rounded-lg border border-slate-200 px-3 py-2">
+            <div class="mt-5 grid grid-cols-2 gap-2">
+                <button class="rounded-lg bg-teal-700 px-4 py-2 font-semibold text-white hover:bg-teal-800" onclick="saveDates()">Aceptar</button>
+                <button class="rounded-lg border border-slate-300 px-4 py-2 font-semibold text-slate-600 hover:bg-slate-100" onclick="closeModal()">Cancelar</button>
+            </div>
         </div>
     </div>
 
