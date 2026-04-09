@@ -12,12 +12,14 @@
   "keywords": [],
   "description": "Aplicación de escritorio con frontend (Electron) y backend (Express + MongoDB).",
   "devDependencies": {
-    "electron": "^37.0.0",
-    "electron-builder": "^26.0.12"
+    "electron": "^41.2.0",
+    "electron-builder": "^26.8.1"
   },
   "dependencies": {
-    "dotenv": "^16.4.7",
-    "express": "^5.1.0",
-    "mongodb": "^6.17.0"
+    "dotenv": "^17.4.1",
+    "express": "^5.2.1",
+    "glob": "^13.0.6",
+    "mongodb": "^7.1.1",
+    "rimraf": "^6.1.3"
   }
 }
