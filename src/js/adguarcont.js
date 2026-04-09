@@ -213,7 +213,7 @@ async function fetchDocuments() {
   sortDocuments();
 }
 
-function saveDates() {
+async function saveDates() {
   const startDateInput = document.getElementById('start-date');
   const endDateInput = document.getElementById('end-date');
 
@@ -229,13 +229,36 @@ function saveDates() {
     return;
   }
 
-  const buttonContent = selectedButton.textContent.split('Fecha de inicio')[0].trim();
-  selectedButton.innerHTML = `${buttonContent}<br><span class="date-text">Fecha de inicio: ${formatDate(startDateInput.value)}<br>Fecha de término: ${formatDate(endDateInput.value)}</span>`;
+  if (!selectedDocument?.id) {
+    alert('No se pudo identificar el documento a editar.');
+    return;
+  }
+
+  try {
+    const response = await fetch(`http://localhost:3000/api/documents/${encodeURIComponent(selectedDocument.id)}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fecha_inicio: startDateInput.value,
+        fecha_termino: endDateInput.value,
+      }),
+    });
+    const result = await response.json();
+
+    if (!response.ok || !result.success) {
+      alert(result.message || 'No se pudieron guardar las fechas del documento.');
+      return;
+    }
+  } catch (error) {
+    console.error('Error al guardar las fechas del documento:', error);
+    alert('Ocurrió un error al guardar las fechas del documento.');
+    return;
+  }
 
   closeModal();
   startDateInput.value = '';
   endDateInput.value = '';
-  sortDocuments();
+  await fetchDocuments();
 }
 
 document.addEventListener('DOMContentLoaded', async () => {

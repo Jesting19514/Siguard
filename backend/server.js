@@ -326,6 +326,51 @@ async function createServer() {
     }
   });
 
+  app.put('/api/documents/:id', async (req, res) => {
+    const { id } = req.params;
+    const { fecha_inicio, fecha_termino } = req.body;
+
+    try {
+      if (!fecha_inicio || !fecha_termino) {
+        res.status(400).json({ success: false, message: 'Las fechas de inicio y término son obligatorias.' });
+        return;
+      }
+
+      const startDate = new Date(fecha_inicio);
+      const endDate = new Date(fecha_termino);
+      if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime())) {
+        res.status(400).json({ success: false, message: 'Las fechas del documento no son válidas.' });
+        return;
+      }
+
+      if (startDate > endDate) {
+        res.status(400).json({ success: false, message: 'La fecha inicial no puede ser mayor a la fecha final.' });
+        return;
+      }
+
+      const collection = database.collection('documentos');
+      const result = await collection.updateOne(
+        { _id: toObjectId(id) },
+        {
+          $set: {
+            fecha_inicio: startDate,
+            fecha_termino: endDate,
+          },
+        },
+      );
+
+      if (result.matchedCount === 0) {
+        res.status(404).json({ success: false, message: 'Documento no encontrado.' });
+        return;
+      }
+
+      res.json({ success: true, message: 'Documento actualizado correctamente.' });
+    } catch (error) {
+      console.error('Error al actualizar el documento:', error);
+      res.status(500).json({ success: false, message: 'Error al actualizar el documento.' });
+    }
+  });
+
   app.post('/api/auth/login', async (req, res) => {
     const { name, password } = req.body;
     try {

@@ -1,5 +1,6 @@
 (() => {
   let selectedButton = null;
+  let selectedDocumentId = null;
   let selectedDaycare = null;
   const disabledButtons = new Set();
   const modifiedButtons = new Set();
@@ -141,6 +142,7 @@
 
     const editButton = document.createElement('button');
     editButton.className = 'edit-button rounded-lg border border-slate-200 p-2 hover:bg-slate-100';
+    editButton.setAttribute('data-document-id', doc._id || '');
     editButton.innerHTML = '<img src="../../assets/images/editafecha.png" class="icon h-5 w-5" alt="Editar fechas">';
     editButton.onclick = () => window.openDatePicker(editButton);
 
@@ -162,6 +164,7 @@
   window.openDatePicker = function(button) {
     const associatedButton = button.previousElementSibling;
     const checkbox = button.nextElementSibling;
+    selectedDocumentId = button.getAttribute('data-document-id');
 
     if (checkbox.checked && associatedButton.style.boxShadow.includes('rgba(128, 128, 128') && !modifiedButtons.has(associatedButton)) {
       selectedButton = associatedButton;
@@ -252,13 +255,36 @@
     checkDatesAndUpdate();
   };
 
-  window.saveDates = function() {
+  window.saveDates = async function() {
     const startDate = document.getElementById('start-date').value;
     const endDate = document.getElementById('end-date').value;
 
     if (startDate && endDate && new Date(startDate) <= new Date(endDate)) {
-      const buttonContent = selectedButton.textContent.split('Fecha de inicio')[0].trim();
-      selectedButton.innerHTML = `${buttonContent}<br><span class="date-text">Fecha de inicio: ${formatDate(startDate)}<br>Fecha de término: ${formatDate(endDate)}</span>`;
+      if (!selectedDocumentId) {
+        alert('No se encontró el documento a modificar.');
+        return;
+      }
+
+      try {
+        const response = await fetch(`http://localhost:3000/api/documents/${encodeURIComponent(selectedDocumentId)}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            fecha_inicio: startDate,
+            fecha_termino: endDate,
+          }),
+        });
+        const result = await response.json();
+        if (!response.ok || !result.success) {
+          alert(result.message || 'No se pudo actualizar la fecha del documento.');
+          return;
+        }
+      } catch (error) {
+        console.error('Error al actualizar la fecha del documento:', error);
+        alert('Ocurrió un error al actualizar la fecha del documento.');
+        return;
+      }
+
       window.closeModal();
       modifiedButtons.add(selectedButton);
       const checkbox = selectedButton.nextElementSibling.nextElementSibling;
@@ -266,7 +292,7 @@
         checkbox.checked = false;
         window.toggleCheckbox(checkbox);
       }
-      checkDatesAndUpdate();
+      await window.reloadDocuments();
     } else {
       alert('Por favor, selecciona ambas fechas y asegúrate de que la fecha inicial no sea posterior a la fecha final.');
     }
