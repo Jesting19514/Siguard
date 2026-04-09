@@ -83,5 +83,8 @@
     "wrappy": "^1.0.2",
     "yauzl": "^2.10.0"
   },
-  "description": ""
+  "description": "",
+  "overrides": {
+    "path-to-regexp": "0.1.12"
+  }
 }
