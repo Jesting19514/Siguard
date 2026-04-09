@@ -102,12 +102,12 @@ npm run dist
 Vista general esperada del flujo:
 
 - Pantalla de login.
- ![Login](./assets/login.png)
+ ![Login](./assets/images/login.png)
 - Menú principal de administrador.
- ![Admin](./assets/admin.png)
+ ![Admin](./assets/images/admin.png)
 - Menú principal de usuario gerente.
- ![User](./assets/user.png)
+ ![User](./assets/images/user.png)
 - Gestión de guarderías y documentos.
- ![Documents](./assets/documents.png)
+ ![Documents](./assets/images/documents.png)
 
 
