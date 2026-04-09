@@ -86,11 +86,31 @@ function getDateInputValue(dateValue) {
   if (!dateValue) {
     return '';
   }
-  const date = new Date(dateValue);
-  if (Number.isNaN(date.getTime())) {
+  const date = parseDateAsLocal(dateValue);
+  if (!date) {
     return '';
   }
-  return date.toISOString().split('T')[0];
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function parseDateAsLocal(value) {
+  if (!value) return null;
+  if (value instanceof Date) return Number.isNaN(value.getTime()) ? null : value;
+  if (typeof value === 'string') {
+    const dateOnlyMatch = value.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (dateOnlyMatch) {
+      const [, year, month, day] = dateOnlyMatch;
+      return new Date(Number(year), Number(month) - 1, Number(day));
+    }
+  }
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return null;
+  }
+  return date;
 }
 
 function saveSelectedDaycare(daycare) {

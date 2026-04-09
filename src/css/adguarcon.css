@@ -1,274 +1,199 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&family=Quicksand:wght@400;600;700&display=swap');
 
 body {
-    
-    margin: 0;
-    padding: 0;
-    display: flex;
-    height: 100vh;
-    background-color: #ffeee021;
-    scrollbar-color: #0f605c #f1f1f1;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f7fbfb 0%, #eef6f5 100%);
+  scrollbar-color: #0f605c #f1f1f1;
+  font-family: 'Quicksand', sans-serif;
 }
 
 .sidebar {
-    width: 20%;
-    background-color: #0f605c;
-    background: linear-gradient(60deg, #0f605c, #09988d);
-    padding: 20px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
+  width: 20%;
+  min-width: 220px;
+  background: linear-gradient(60deg, #0f605c, #09988d);
+  padding: 24px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  box-shadow: 4px 0 20px rgba(15, 96, 92, 0.22);
 }
 
 .sidebar h2 {
-    font-family: 'Monserrat', sans-serif;
-    font-size: 300%;
-    color: white;
-    margin-top: 1;
-    text-shadow: 1px 1px 10px black;
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(2rem, 2.4vw, 3rem);
+  color: white;
+  margin-top: 1;
+  text-shadow: 1px 1px 10px black;
 }
-.contract-dates {
-    font-family: 'Monserrat', sans-serif; /* Matching your existing fonts */
-    font-size: 1.2em; /* Small, but readable size */
-    color: #555; /* A light gray color for subtlety */
-    margin: 0; /* No additional margins to keep alignment */
-    margin-top: -20px;
-    margin-left: 1%;
-    padding: -1px; /* A small padding to add some space between the text */
-}
+
 .content {
-    width: 80%;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-#daycare-list {
-    max-height: 42em;
-    overflow-y: auto;
-    margin: 0px 0;
-    padding: 0.8em;
-}
-.daycare-item-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* Asegura que los elementos se distribuyan a ambos extremos */
-    gap: 10px;
-    margin-bottom: 1.5em;
-}
-.back-button {
-    font-family: Montserrat, sans-serif;
-    font-weight: 600;
-    position: fixed;
-    bottom: 20px;
-    left: 23%;
-
-    font-size: 20px;
-    background-color: #ffeee021;
-    color: rgb(41, 145, 206);
-    cursor: pointer;
-    padding: 10px 100px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: rgb(41, 145, 206);
-    border-image: initial;
-    border-radius: 7px;
-}
-
-.back-button:hover {
-    background-color: #ffeee02d;
-    color: #3fa2db;
-    border: 1px solid #3aabec;
-    transform: translateY(-4px); 
-}
-
-/* Parte inferior del botón con borde verde */
-.daycare-item {
-    font-family: 'Monserrat', sans-serif;
-    padding: 1%;
-    font-size: 2em;
-    color: black;
-    background: white;
-    border: 1px solid rgba(0, 0, 0, 0.089);
-    border-radius: 8px;
-    cursor: pointer;
-    text-align: left;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Añadido box-shadow a la transición */
-    flex: 1;
-    word-wrap: break-word;
-    white-space: normal;
-    word-break: break-word;
-    position: relative; /* Necesario para ::after */
-    box-shadow: 0 5px 0.5px rgba(2, 241, 34, 0); /* Sombra verde por defecto */
-}
-
-#daycare-list h1 {
-    max-height: 90%;
-    overflow-y: auto;
-    border: none; 
-    margin: 0px 0;
-    padding: 0.8em;
-}
-
-
-.logoApp {
-    width: 20%;
-    flex: 1;
-    position: fixed;
-    bottom: 50px;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    
+  width: 80%;
+  padding: 28px 34px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .content h1 {
-    font-family: 'Monserrat', sans-serif;
-    font-size: 300%;
-    color: gray;
-    margin-top: 1;
-    text-shadow: 1px 1px 3px rgb(0, 0, 0);
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  color: #295166;
+  margin: 0;
+  text-shadow: none;
 }
+
+.contract-dates {
+  font-size: 1rem;
+  color: #44545e;
+  margin: -4px 0 8px 2px;
+  font-weight: 600;
+}
+
+#daycare-list {
+  max-height: 70vh;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0.35rem;
+}
+
+.daycare-item-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 0.9rem;
+  background: #ffffff;
+  border: 1px solid #dce8e7;
+  border-radius: 14px;
+  padding: 12px 14px;
+  box-shadow: 0 8px 20px rgba(9, 62, 59, 0.06);
+}
+
+.daycare-item {
+  font-family: 'Quicksand', sans-serif;
+  padding: 0.65rem 0.75rem;
+  font-size: clamp(1.05rem, 1.4vw, 1.45rem);
+  font-weight: 700;
+  color: #1d2f3b;
+  background: transparent;
+  border: 1px solid #e4efee;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+  flex: 1;
+  word-wrap: break-word;
+  white-space: normal;
+  word-break: break-word;
+  box-shadow: 0 5px 0.5px rgba(2, 241, 34, 0);
+}
+
+.daycare-item .date-text {
+  font-size: 0.66em;
+  color: #4d616d;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.edit-button {
+  padding: 10px;
+  background-color: #f5fbfb;
+  border: 1px solid #d8e7e6;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.edit-button:hover {
+  transform: translateY(-3px);
+}
+
+.icon {
+  width: 26px;
+  background: transparent;
+  border: none;
+}
+
 .modal {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    backdrop-filter: blur(9.0px);
-    background-color: rgba(255, 255, 255, 0.822);
-    border: 1px solid rgb(167, 167, 167);
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    border-radius: 15px;
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  backdrop-filter: blur(9px);
+  background-color: rgba(255, 255, 255, 0.96);
+  border: 1px solid #d7e4e4;
+  padding: 22px;
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.18);
+  z-index: 1000;
+  border-radius: 15px;
+  min-width: 320px;
 }
 
 .modal-content {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .modal h2 {
-    margin: 0;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.3rem;
+  color: #20485b;
 }
 
 .modal input {
-    width: 100%;
-    padding: 5px;
+  width: 100%;
+  padding: 9px;
+  border: 1px solid #cddddd;
+  border-radius: 8px;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.95rem;
+  box-sizing: border-box;
 }
 
 .modal button {
-    padding: 10px;
-    margin-top: 10px;
-    cursor: pointer;
-}
-.daycare-item, .daycare-item2, .daycare-item3 {
-    white-space: normal;  /* Allow text to wrap inside the button */
-    text-align: left;     /* Align text to the left */
-    line-height: 1.5;     /* Adjust line height for readability */
-    word-break: break-word; /* Ensure long words wrap correctly */
-}
-.date-container {
-    flex-basis: 100%; /* Asegura que las fechas se pongan en una nueva línea */
-    text-align: left; /* Alinea las fechas a la izquierda */
-    margin-top: 5px; /* Añade un pequeño margen superior para separar el contenido */
-}
-/* Nuevas reglas para asegurarse de que los elementos mantengan su disposición */
-.daycare-item-container .daycare-item,
-.daycare-item-container .edit-button {
-    order: 1; /* Asegura que el documento y el botón mantengan su orden en la línea principal */
+  padding: 10px 14px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 1px solid #b9d0d0;
+  background: #f6fbfb;
+  font-weight: 700;
 }
 
-.daycare-item-container .date-container {
-    order: 2; /* Las fechas siempre aparecerán después en una nueva línea */
-}
-.daycare-item .date-text,
-.daycare-item2 .date-text,
-.daycare-item3 .date-text {
-    font-size: 0.8em; /* Smaller font for the dates */
-    color: #555; /* Optional: lighter color for the dates */
-}
-.button-icon {
-    display: flex;           /* Asegúrate de que se alineen correctamente */
-    align-items: center;    /* Alinear verticalmente */
-    background: transparent; /* Eliminar fondo */
-    border: none;           /* Eliminar borde */
-}
-.edit-button {
-    padding: 10px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-}
-.edit-button:hover {
-    background-color: #297fb900;
-    transform: translateY(-5px); 
-    opacity: 1;
-}
-.edit-button {
-    padding: 15px 20px;
-    font-size: 14px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-.icon {
-    width: 40px;
-    cursor: pointer;
-    background: transparent; /* Eliminar fondo del icono */
-    border: none;            /* Eliminar borde del icono */
-    
-}
-#button-name-input {
-    padding: 5px;
-    margin-left: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+.logoApp {
+  width: 22%;
+  min-width: 76px;
+  flex: 1;
+  position: fixed;
+  bottom: 50px;
+  color: white;
+  border: none;
+  border-radius: 5px;
 }
 
-#confirm-name-button {
-    padding: 5px 10px;
-    margin-left: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #4CAF50; /* Cambia el color según tu diseño */
-    color: white;
-    cursor: pointer;
+.back-button {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  position: fixed;
+  bottom: 18px;
+  left: 23%;
+  font-size: 16px;
+  background-color: #ffffff;
+  color: #146f9b;
+  cursor: pointer;
+  padding: 10px 32px;
+  border: 1px solid #85c6e3;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(20, 111, 155, 0.15);
 }
 
-#confirm-name-button:hover {
-    background-color: #45a049;
-}
-.priority-high {
-    order: 1; /* Rojo - alta prioridad */
-}
-
-.priority-medium {
-    order: 2; /* Naranja - prioridad media */
-}
-
-.priority-low {
-    order: 3; /* Verde - baja prioridad */
-}
-.button-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    bottom: 20px;
-    width: 100%; 
-    padding: 0 20px;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-    margin-top: auto;
-}
-.left-buttons {
-    display: flex;
-    gap: 20px; 
+.back-button:hover {
+  background-color: #f0fafe;
+  transform: translateY(-2px);
 }

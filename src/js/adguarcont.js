@@ -1,5 +1,6 @@
 let selectedButton = null;
 let selectedDocument = null;
+const notifiedDocuments = new Set();
 
 function openDatePicker(button) {
   selectedButton = button.previousElementSibling;
@@ -17,11 +18,27 @@ function formatDate(dateString) {
   if (!dateString) {
     return '--/--/----';
   }
-  const date = new Date(dateString);
-  if (Number.isNaN(date.getTime())) {
+  const date = parseDateAsLocal(dateString);
+  if (!date) {
     return '--/--/----';
   }
   return date.toLocaleDateString('es-ES');
+}
+
+function parseDateAsLocal(value) {
+  if (!value) return null;
+  if (value instanceof Date) return Number.isNaN(value.getTime()) ? null : value;
+
+  if (typeof value === 'string') {
+    const dateOnlyMatch = value.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (dateOnlyMatch) {
+      const [, year, month, day] = dateOnlyMatch;
+      return new Date(Number(year), Number(month) - 1, Number(day));
+    }
+  }
+
+  const parsed = new Date(value);
+  return Number.isNaN(parsed.getTime()) ? null : parsed;
 }
 
 function updateHeader(daycare) {
@@ -95,6 +112,23 @@ function updateButtonStyles(button, daysRemaining) {
   }
 }
 
+function maybeNotifyDocumentExpiration(documentName, endDate, daysRemaining) {
+  if (!window.ipcRenderer || typeof window.ipcRenderer.send !== 'function') {
+    return;
+  }
+
+  const notificationKey = `${documentName}-${endDate.getTime()}`;
+  if (notifiedDocuments.has(notificationKey)) {
+    return;
+  }
+
+  window.ipcRenderer.send('send-notification', {
+    title: 'Documento próximo a vencer',
+    body: `${documentName} vence el ${endDate.toLocaleDateString('es-ES')} (faltan ${daysRemaining} días).`,
+  });
+  notifiedDocuments.add(notificationKey);
+}
+
 function sortDocuments() {
   const container = document.getElementById('daycare-list');
   const items = Array.from(container.children);
@@ -146,10 +180,20 @@ async function fetchDocuments() {
       <span class="date-text">Fecha de inicio: ${formatDate(startDateRaw)}<br>Fecha de término: ${formatDate(endDateRaw)}</span>
     `;
 
-    const today = new Date().setHours(0, 0, 0, 0);
-    const endDate = new Date(endDateRaw).setHours(0, 0, 0, 0);
-    const daysRemaining = Number.isNaN(endDate) ? 0 : Math.max(0, Math.round((endDate - today) / (1000 * 60 * 60 * 24)));
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const endDate = parseDateAsLocal(endDateRaw);
+    const normalizedEndDate = endDate ? new Date(endDate) : null;
+    if (normalizedEndDate) {
+      normalizedEndDate.setHours(0, 0, 0, 0);
+    }
+    const daysRemaining = !normalizedEndDate
+      ? 0
+      : Math.max(0, Math.round((normalizedEndDate - today) / (1000 * 60 * 60 * 24)));
     updateButtonStyles(button, daysRemaining);
+    if (normalizedEndDate && daysRemaining <= 14) {
+      maybeNotifyDocumentExpiration(doc.nombreDoc || 'Documento', normalizedEndDate, daysRemaining);
+    }
     button.addEventListener('click', () => toggleDates(button));
 
     const editButton = document.createElement('button');
