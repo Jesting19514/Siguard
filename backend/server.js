@@ -156,20 +156,68 @@ async function createServer() {
     }
   });
 
+  app.get('/api/daycares/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+      const collection = database.collection('guarderias');
+      const daycare = await collection.findOne({ _id: toObjectId(id) });
+      if (!daycare) {
+        res.status(404).json({ success: false, message: 'Guardería no encontrada.' });
+        return;
+      }
+      res.json({ success: true, daycare: normalizeDaycareForResponse(daycare) });
+    } catch (error) {
+      console.error('Error al obtener la guardería:', error);
+      res.status(500).json({ success: false, message: 'Error al obtener la guardería.' });
+    }
+  });
+
   app.post('/api/daycares', async (req, res) => {
     const { _id, razon_social, id_usuario_gerente, fecha_inicio, fecha_termino, num_guarderia } = req.body;
     try {
-      const collection = database.collection('guarderias');
-      const result = await collection.insertOne({
+      const usersCollection = database.collection('usuarios');
+      const daycareCollection = database.collection('guarderias');
+      const userName = String(razon_social || '').trim();
+      const userPassword = String(num_guarderia || '').trim();
+
+      if (!userName || !userPassword) {
+        res.status(400).json({ success: false, message: 'Nombre de guardería y número de guardería son obligatorios.' });
+        return;
+      }
+
+      const userExists = await usersCollection.findOne({ nombre: userName });
+      if (userExists) {
+        res.status(409).json({ success: false, message: 'Ya existe un usuario con ese nombre de guardería.' });
+        return;
+      }
+
+      const managerUser = {
+        nombre: userName,
+        password_hash: hashPassword(userPassword),
+        id_roles: 2,
+        created_at: new Date(),
+      };
+
+      const userResult = await usersCollection.insertOne(managerUser);
+      const managerId = userResult.insertedId;
+
+      const daycarePayload = {
         _id: _id || new ObjectId(),
         razon_social: encryptText(razon_social),
-        id_usuario_gerente,
+        id_usuario_gerente: id_usuario_gerente || managerId,
         fecha_inicio: new Date(fecha_inicio),
         fecha_termino: new Date(fecha_termino),
         num_guarderia: encryptText(num_guarderia),
-      });
+      };
 
-      res.json({ success: true, message: 'Guardería agregada correctamente.', id: result.insertedId });
+      const daycareResult = await daycareCollection.insertOne(daycarePayload);
+
+      res.json({
+        success: true,
+        message: 'Guardería agregada correctamente y usuario creado.',
+        id: daycareResult.insertedId,
+        user: { nombre: userName, id_roles: 2 },
+      });
     } catch (error) {
       console.error('Error al agregar la guardería:', error);
       res.status(500).json({ success: false, message: 'Error al agregar la guardería.' });
@@ -223,8 +271,10 @@ async function createServer() {
 
   app.get(['/api/documents', '/api/documentos'], async (req, res) => {
     try {
+      const { daycareNumber } = req.query;
+      const filter = daycareNumber ? { num_guarderia: daycareNumber } : {};
       const collection = database.collection('documentos');
-      const documents = await collection.find({}).toArray();
+      const documents = await collection.find(filter).toArray();
       res.json(documents);
     } catch (error) {
       console.error('Error al obtener los documentos:', error);
@@ -235,13 +285,27 @@ async function createServer() {
   app.post('/api/auth/login', async (req, res) => {
     const { name, password } = req.body;
     try {
-      const collection = database.collection('usuarios');
-      const user = await collection.findOne({ nombre: name });
+      const users = database.collection('usuarios');
+      const daycares = database.collection('guarderias');
+      const user = await users.findOne({ nombre: name });
       if (!user || !verifyPassword(password, user.password_hash)) {
         return res.status(401).json({ success: false, message: 'Credenciales incorrectas' });
       }
 
-      return res.json({ success: true, roleId: user.id_roles });
+      let daycare = null;
+      if (user.id_roles === 2) {
+        const daycareRecord = await daycares.findOne({ id_usuario_gerente: user._id });
+        if (daycareRecord) {
+          daycare = normalizeDaycareForResponse(daycareRecord);
+        }
+      }
+
+      return res.json({
+        success: true,
+        roleId: user.id_roles,
+        userId: String(user._id),
+        daycare,
+      });
     } catch (error) {
       console.error('Error durante la autenticación:', error);
       return res.status(500).json({ success: false, message: 'Error de autenticación' });
@@ -258,14 +322,17 @@ async function createServer() {
   const shutdown = async () => {
     await new Promise((resolve, reject) => {
       server.close((err) => {
-        if (err) reject(err);
-        else resolve();
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve();
       });
     });
     await client.close();
   };
 
-  return { shutdown };
+  return { app, server, client, shutdown };
 }
 
 module.exports = { createServer };
