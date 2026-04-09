@@ -1,5 +1,6 @@
 (() => {
   let selectedButton = null;
+  let selectedDaycare = null;
   const disabledButtons = new Set();
   const modifiedButtons = new Set();
 
@@ -38,6 +39,15 @@
 
   async function fetchDocuments(daycareNumber) {
     const response = await fetch(`http://localhost:3000/api/documents?daycareNumber=${encodeURIComponent(daycareNumber)}`);
+    return response.json();
+  }
+
+  async function createDocumentForDaycare(payload) {
+    const response = await fetch('http://localhost:3000/api/documents', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
     return response.json();
   }
 
@@ -97,6 +107,12 @@
     return container;
   }
 
+  function toggleEmptyState(hasDocuments) {
+    const emptyMessage = document.getElementById('empty-documents-message');
+    if (!emptyMessage) return;
+    emptyMessage.classList.toggle('hidden', hasDocuments);
+  }
+
   window.openDatePicker = function(button) {
     const associatedButton = button.previousElementSibling;
     const checkbox = button.nextElementSibling;
@@ -111,6 +127,81 @@
 
   window.closeModal = function() {
     document.getElementById('date-modal').style.display = 'none';
+  };
+
+  window.openCreateDocumentModal = function() {
+    if (!selectedDaycare) {
+      alert('No se encontró la guardería seleccionada.');
+      return;
+    }
+    document.getElementById('document-name').value = '';
+    document.getElementById('document-start-date').value = '';
+    document.getElementById('document-end-date').value = '';
+    document.getElementById('create-document-modal').classList.remove('hidden');
+    document.getElementById('create-document-modal').classList.add('flex');
+  };
+
+  window.closeCreateDocumentModal = function() {
+    document.getElementById('create-document-modal').classList.add('hidden');
+    document.getElementById('create-document-modal').classList.remove('flex');
+  };
+
+  window.createDocument = async function() {
+    if (!selectedDaycare) {
+      alert('No se encontró la guardería seleccionada.');
+      return;
+    }
+
+    const nombreDoc = document.getElementById('document-name').value.trim();
+    const fecha_inicio = document.getElementById('document-start-date').value;
+    const fecha_termino = document.getElementById('document-end-date').value;
+
+    if (!nombreDoc || !fecha_inicio || !fecha_termino) {
+      alert('Completa todos los campos para crear el documento.');
+      return;
+    }
+
+    if (new Date(fecha_inicio) > new Date(fecha_termino)) {
+      alert('La fecha inicial no puede ser mayor que la fecha final.');
+      return;
+    }
+
+    const result = await createDocumentForDaycare({
+      nombreDoc,
+      fecha_inicio,
+      fecha_termino,
+      num_guarderia: selectedDaycare.num_guarderia,
+      id_guarderia: selectedDaycare._id,
+    });
+
+    if (!result.success) {
+      alert(result.message || 'No se pudo crear el documento.');
+      return;
+    }
+
+    window.closeCreateDocumentModal();
+    await window.reloadDocuments();
+  };
+
+  window.reloadDocuments = async function() {
+    if (!selectedDaycare) {
+      return;
+    }
+    const docs = await fetchDocuments(selectedDaycare.num_guarderia);
+    const list = document.getElementById('daycare-list');
+    list.innerHTML = '';
+
+    docs.forEach((doc) => {
+      list.appendChild(buildDocumentRow(doc));
+    });
+
+    toggleEmptyState(docs.length > 0);
+
+    document.querySelectorAll('.daycare-item').forEach((button) => {
+      button.style.boxShadow = '0 5px 5px rgba(128, 128, 128, 0.692)';
+    });
+
+    checkDatesAndUpdate();
   };
 
   window.saveDates = function() {
@@ -152,22 +243,12 @@
       return;
     }
 
-    const daycare = await fetchDaycare(daycareId);
-    updateHeader(daycare);
-    if (!daycare) return;
-
-    const docs = await fetchDocuments(daycare.num_guarderia);
-    const list = document.getElementById('daycare-list');
-    list.innerHTML = '';
-
-    docs.forEach((doc) => {
-      list.appendChild(buildDocumentRow(doc));
-    });
-
-    document.querySelectorAll('.daycare-item').forEach((button) => {
-      button.style.boxShadow = '0 5px 5px rgba(128, 128, 128, 0.692)';
-    });
-
-    checkDatesAndUpdate();
+    selectedDaycare = await fetchDaycare(daycareId);
+    updateHeader(selectedDaycare);
+    if (!selectedDaycare) {
+      toggleEmptyState(false);
+      return;
+    }
+    await window.reloadDocuments();
   });
 })();

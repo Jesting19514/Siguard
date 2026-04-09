@@ -282,6 +282,50 @@ async function createServer() {
     }
   });
 
+  app.post('/api/documents', async (req, res) => {
+    try {
+      const {
+        nombreDoc, fecha_inicio, fecha_termino, num_guarderia, id_guarderia,
+      } = req.body;
+
+      if (!nombreDoc || !fecha_inicio || !fecha_termino || !num_guarderia) {
+        res.status(400).json({ success: false, message: 'Faltan datos obligatorios del documento.' });
+        return;
+      }
+
+      const startDate = new Date(fecha_inicio);
+      const endDate = new Date(fecha_termino);
+      if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime())) {
+        res.status(400).json({ success: false, message: 'Las fechas del documento no son válidas.' });
+        return;
+      }
+
+      if (startDate > endDate) {
+        res.status(400).json({ success: false, message: 'La fecha inicial no puede ser mayor a la fecha final.' });
+        return;
+      }
+
+      const collection = database.collection('documentos');
+      const result = await collection.insertOne({
+        nombreDoc: String(nombreDoc).trim(),
+        fecha_inicio: startDate,
+        fecha_termino: endDate,
+        num_guarderia: String(num_guarderia).trim(),
+        id_guarderia: id_guarderia ? toObjectId(id_guarderia) : null,
+        created_at: new Date(),
+      });
+
+      res.status(201).json({
+        success: true,
+        message: 'Documento creado correctamente.',
+        id: result.insertedId,
+      });
+    } catch (error) {
+      console.error('Error al crear el documento:', error);
+      res.status(500).json({ success: false, message: 'Error al crear el documento.' });
+    }
+  });
+
   app.post('/api/auth/login', async (req, res) => {
     const { name, password } = req.body;
     try {
